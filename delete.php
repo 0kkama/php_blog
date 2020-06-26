@@ -1,14 +1,18 @@
 <?php
+	include_once('functions.php');
+    include_once ('styles.php');
 
-	include_once('functions.php');		
+    $artId = (int) (val((   $_GET['id'] ?? 0   )));
+    $artArray = getArticles();
 
-	/*
-		your code here
-		get id from url
-		check id
-		call removeArticle
-	*/
+if (isset($artArray[$artId])) {
+    //foreach ($artArray as $arr) {
+    //    if ($arr['id'] === $artId) {
+        removeArticle($artId);
+        echo 'Article deleted!';
+    } else {
+        echo 'This article doesn\'t exist!';
+    }
 ?>
-Message about result
 <hr>
-<a href="index.php">Move to main page</a>
+<a href="index.php"> Move to main page </a>
