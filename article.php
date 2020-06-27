@@ -1,6 +1,9 @@
 <?php
-	include_once('functions.php');
+    declare(strict_types=1);
+    include_once ('controller/config.php');
+    include_once('library.php');
     include_once ('styles.php');
+
 	$articles = getArticles();
 	$id = (int)($_GET['id'] ?? '');
 	$post = $articles[$id] ?? null;

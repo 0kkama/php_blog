@@ -1,6 +1,8 @@
 <?php
-include_once('functions.php');
-include_once ('styles.php');
+    declare(strict_types=1);
+    include_once ('controller/config.php');
+    include_once('library.php');
+    include_once ('styles.php');
 
 $errMsg = '';
 $editStatus = false;
@@ -11,7 +13,7 @@ $editStatus = false;
         $editTitle = $artArray[$artId]['title'];
         $editContent = $artArray[$artId]['content'];
     } else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $artId = val( $_POST['id'] );
+        $artId = (int) val( $_POST['id'] );
         $editTitle = val( $_POST['title'] );
         $editContent = val( $_POST['content'] );
 

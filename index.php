@@ -1,7 +1,10 @@
 <?php
-	include_once('functions.php');
-	$articles = getArticles();
-	include_once ('styles.php');
+    declare(strict_types=1);
+    include_once ('controller/config.php');
+	include_once('library.php');
+    include_once ('styles.php');
+
+    $articles = getArticles();
 ?>
 
 <a href="add.php">Add article</a>
