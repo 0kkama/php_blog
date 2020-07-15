@@ -4,13 +4,13 @@ function err_catcher (int $errNo, string $errMsg, string $errFile, string $errLi
     if ( $errNo === E_USER_ERROR ) {
         // если ошибка сурьёзная
         echo 'We Sorry...';
-        $msgStr = date('d-m-Y H:i:s') . " - $errNo - $errMsg in $errFile line:$errLine";
-        error_log("$msgStr\n",3,'log/error.log');
+        $msgStr = date('H:i:s') . " - $errNo - $errMsg in $errFile line:$errLine";
+        error_log("$msgStr\n",3,'logs/errors/error '. date('d-m-Y') . '.log');
     } else {
         // если ошибка не такая сурьёзная
         echo 'Bad news, everyone!';
-        $msgStr = date('d-m-Y H:i:s') . " - $errNo - $errMsg in $errFile line:$errLine";
-        error_log("$msgStr\n",3,'log/errNotice.log');
+        $msgStr = date('H:i:s') . " - $errNo - $errMsg in $errFile line:$errLine";
+        error_log("$msgStr\n",3,'logs/errors/errNotice '. date('d-m-Y') . '.log');
     }
 }
 

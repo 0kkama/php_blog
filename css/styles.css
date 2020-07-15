@@ -1,0 +1,137 @@
+     body {
+  margin: 0;
+  padding: 0;
+  background-color: #8892BF;
+  color: #040404;
+  font-family: Arial, Helvetica, sans-serif;
+  border-top: 2px solid #2A4F6F;
+  margin-bottom: 15px;
+}
+
+#header {
+  border-top: 1px solid #778899;
+  border-bottom: 1px dotted #2E3436;
+  /*height: 4em;*/
+}
+
+#header .slogan {
+  font: 120% Georgia, "Times New Roman", Times, serif;
+  color: #040404;
+  background-color: transparent;
+  float: right;
+  width: 300px;
+  text-align: right;
+  margin-right: 2em;
+  margin-top: 0.5em;
+}
+
+#header .logo {
+  float: left;
+  width: 200px;
+  margin-left: 1em;
+  margin-top: 0.5em;
+}
+
+#nav {
+  position: absolute;
+  top: 5em;
+  left: 1em;
+  width: 14em;
+}
+
+#nav ul {
+  list-style: none;
+  margin-left: 1em;
+  padding-left: 0;
+}
+
+#nav li {
+  font-size: 100%;
+  border-bottom: 1px dotted #040404;
+  margin-bottom: 0.3em;
+}
+
+#nav a:link,
+#nav a:visited {
+  text-decoration: none;
+  color: #040404;
+  background-color: transparent;
+}
+
+#nav a:hover {
+  color: #778899;
+}
+
+#nav h2 {
+  font: 110% Georgia, "Times New Roman", Times, serif;
+  color: #040404;
+  background-color: transparent;
+  border-bottom: 1px dotted #040404;
+}
+
+#content {
+  font: 110% Georgia, "Times New Roman", Times, serif;
+  margin-left: 16em;
+  margin-right: 10em;
+  text-align: justify;
+}
+
+h1 {
+  font: 150% Georgia, "Times New Roman", Times, serif;
+}
+
+blockquote {
+  font: 70% Georgia, "Times New Roman", Times, serif;
+  text-align: left;
+}
+
+h3 {
+  font: 120% Georgia, "Times New Roman", Times, serif;
+}
+
+#paragraph {
+    margin-right: 2em;
+}
+
+ol li {
+  font-size: 90%;
+}
+
+#content p,
+form {
+  font-size: 90%;
+  line-height: 1.6em;
+  padding-left: 1.2em;
+  margin-bottom: 0.3em;
+}
+
+#footer {
+  clear: both;
+  text-align: center;
+  border-top: 1px dotted #040404;
+  margin-top: 10px;
+  font: 90% Georgia, "Times New Roman", Times, serif;
+  color: #040404;
+  background-color: transparent;
+}
+
+#footer ul{
+  list-style: none;
+}
+
+#footer li{
+  font-size: 100%;
+  border-bottom: 1px dotted #040404;
+  margin-bottom: 0.5em;
+}
+
+#footer a:link,
+#footer a:visited {
+  text-decoration: none;
+  color: #040404;
+  background-color: transparent;
+}
+
+#footer a:hover {
+  color: #778899;
+}
