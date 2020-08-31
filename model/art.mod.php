@@ -9,7 +9,7 @@ function getArticlesList() : array {
 // получение конкретной статьи
 function getOneArticle (array $params = []) : array {
     $sql = "SELECT * FROM articles WHERE art_id = :art_id AND `moderation` = '1'";
-        return getQuery($sql, $params);
+        return getQuery($sql, $params, 2);
         }
 // добавление новой статьи в базу
 function addArticle(array $params = []) : bool {
@@ -33,6 +33,6 @@ function removeArticle(array $params = []) : bool {
 function checkArticleExist(array $params = []) : array {
     $sql = "SELECT EXISTS(SELECT `art_id` FROM articles WHERE art_id = :art_id) as 'exist'";
         $query = makeQueryToDB($sql, $params);
-        return $query->fetch();
-        // return getQuery($sql, $params)[0];
+        // return $query->fetch();
+        return getQuery($sql, $params, 2);
     }
