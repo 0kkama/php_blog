@@ -6,8 +6,8 @@ function makeCnnctToDB() : PDO {
 
     if($dbConnection === null){
     $dbConnection = new PDO(
-        'mysql:host=localhost;dbname=lavr_hw;charset=utf8',
-        'admin','14133788',
+        'mysql:host='.DB_HOST.';dbname='.DB_NAME.';charset='.DB_CHAR,
+        DB_USER,DB_PASS,
         [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC]);
     }

@@ -1,6 +1,4 @@
 <?php
-    // include_once ('utility/config.util.php');
-    // include_once('hub.php');
 
     makesVisitLog();
 	$sendStatus = false;
