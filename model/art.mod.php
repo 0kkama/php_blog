@@ -1,15 +1,14 @@
 <?php
-include_once ('utility/config.util.php');
 // фуи для работы со статьями
 // список свежих публикаций для главной страницы
 function getArticlesList() : array {
-    $sql = "SELECT * FROM `articles` WHERE `moderation` = '1' ORDER BY `date` DESC LIMIT 5";
+    $sql = "SELECT * FROM `articles` WHERE `moderation` = '1' ORDER BY `date` DESC LIMIT 10";
         return getQuery($sql);
 }
 // получение конкретной статьи
 function getOneArticle (array $params = []) : array {
     $sql = "SELECT * FROM articles WHERE art_id = :art_id AND `moderation` = '1'";
-        return getQuery($sql, $params, 2);
+        return getQuery($sql, $params, 'one');
         }
 // добавление новой статьи в базу
 function addArticle(array $params = []) : bool {
@@ -32,7 +31,7 @@ function removeArticle(array $params = []) : bool {
 // проверка существования статьи по ID
 function checkArticleExist(array $params = []) : array {
     $sql = "SELECT EXISTS(SELECT `art_id` FROM articles WHERE art_id = :art_id) as 'exist'";
-        $query = makeQueryToDB($sql, $params);
+        // $query = makeQueryToDB($sql, $params);
         // return $query->fetch();
-        return getQuery($sql, $params, 2);
+        return getQuery($sql, $params, 'one');
     }

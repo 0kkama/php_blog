@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Главная</title>
+    <title><?= $title ?></title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="css/styles.css" />
 </head>
@@ -13,21 +13,28 @@
         | <a href="index.php?point=info">Go to info</a>
         <span class="slogan"> Эй, верстальщик! <!-- Ты пидор! --> </span>
     </div>
-    <div id="content">
-    	<?php foreach($articles as $article): ?>
-    			<h1><?=$article['title']?></h1>
-                <blockquote><i> <?= 'by ' . $article['author'];?></i></blockquote>
-                <p><?=mb_substr($article['content'], 0, 100) . '...';?></p>
-    			<a href="index.php?point=article&id=<?=$article['art_id']?>">Read more</a>
-        <?php endforeach; ?>
-    </div>
+
+    <?= $content ?>
+
     <div id='nav'>
         <h2> Категории </h2>
         <ul>
             <?php foreach($categories as $category): ?>
-                <li><a href="index.php?point=category&id=<?=$category['url'];?>"> <?=$category['cat_name'];?> </a></li>
+                <li><a href="index.php?point=category&id=<?=$category['cat_id'];?>"> <?=$category['cat_name'];?> </a></li>
             <?php endforeach; ?>
         </ul>
     </div>
+
+    <div id="footer">
+        <div>
+            <ul>
+                <?php foreach($categories as $category): ?>
+                    <li style='display:inline;margin-right:15px'><a href="index.php?point=category&id=<?=$category['cat_id'];?>"><?=$category['cat_name'];?> </a></li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+        <a href="index.php">Move to main page</a> &copy ex nihilo  &#8211 2020
+    </div>
+
 </body>
 </html>

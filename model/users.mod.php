@@ -1,7 +1,5 @@
 <?php
-    include_once ('utility/config.util.php');
 // фуи для работы с пользователями(авторами)
-// declare(strict_types=1);
 // cписок авторов
 function getAuthorsList() : array {
     $sql = "SELECT * FROM users";
@@ -12,7 +10,7 @@ function getUserLogin($user_id) : string {
     $sql = "SELECT login FROM users WHERE user_id = :user_id";
     $param['user_id'] = $user_id; // user_id is string, but for func querytoDB we need array
     // $query = makeQueryToDB($sql, $param);
-    return getQuery($sql, $param, 2)['login'];
+    return getQuery($sql, $param, 'one')['login'];
         // return $query->fetch()['login'];
 }
 // function getUserID() {

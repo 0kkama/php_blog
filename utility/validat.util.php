@@ -23,3 +23,9 @@ function checkParams(array $params) : string {
 function checkID(string $ID) : bool {
     return (bool) preg_match('/^[1-9]+\d*$/', $ID);
 }
+
+function ifErr404() : void {
+    header("{$_SERVER['SERVER_PROTOCOL']} 404 Not Found");
+    echo template('errors/error404.view.php');
+    exit();
+}

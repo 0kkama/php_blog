@@ -1,26 +1,18 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Главная</title>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="css/styles.css" />
-</head>
-
-<div class="form">
+<div id="content">
     <?php if($editStatus): ?>
         <p>Your article was successfully edited!</p>
         <a href="index.php">Return to main page</a><br>
     <?php else: ?>
         <form method="post">
-            <input type="hidden" name="id" value="<?=$article['art_id'] ?? $params['art_id'];?>">
+            <input type="hidden" name="id" value="<?=$article['art_id']?>">
             Edit Title of your article:<br>
-            <input type="text" name="title" value="<?=$article['title'] ?? $params['title'];?>" size="40"><br>
+            <input type="text" name="title" value="<?=$article['title']?>" size="40"><br>
             Or Edit Content of your article:<br>
-            <textarea name="content" cols="57" rows="30"><?=$article['content'] ?? $params['content'];?></textarea><br>
+            <textarea name="content" cols="57" rows="30"><?=$article['content']?></textarea><br>
                 Choose category of your article: <br>
             <select name='cat_id' size='1'>
                 <?php foreach ($categories as $category): ?>
-        <option value= <?=$category['cat_id']?> <?=(($article['cat_id'] ?? $params['cat_id']) == $category['cat_id']) ? 'selected' : '' ?>>
+        <option value= <?=$category['cat_id']?> <?=(($article['cat_id']) == $category['cat_id']) ? 'selected' : '' ?>>
                         <?=$category['cat_name']?>
                     </option>
                 <?php endforeach; ?>
@@ -30,9 +22,7 @@
             <p><?=$errMsg ?? ''?></p>
         </form>
         <hr>
+        <a href="index.php?point=article&id=<?=$article['art_id']?>">Go back</a><br>
         <a href="index.php">Move to main page</a>
     <?php endif; ?>
 </div>
-    <?= $_SERVER['REQUEST_METHOD']; ?>
-
-</html>
