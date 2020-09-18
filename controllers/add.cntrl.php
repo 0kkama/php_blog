@@ -10,6 +10,7 @@
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST'):
         $article = extractFields(['user_id','cat_id','title','content'], $_POST);
+        var_dump($article);
         $article['author'] = getUserLogin($_POST['user_id']);
         $errMsg = checkParams($article);
         if (!$errMsg) {

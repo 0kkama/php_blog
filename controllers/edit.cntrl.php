@@ -5,10 +5,14 @@
     $errMsg = '';
     $categories = getCategoriesList();
 
-
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-        $article['art_id'] = (int) val( $_GET['id'] ?? 0 );
+        $article['art_id'] = (int) val( URL_PARAMS[2] ?? 0 );
         $article = getOneArticle($article);
+// при попытке отредактировать несуществующую статью
+            if(!(bool) $article) {
+                ifErr404();
+            }
+
 // var_dump_pre($_GET); var_dump_pre($article ?? []); echo '------------- 12';
     } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $article = extractFields(['title', 'content', 'cat_id'], $_POST);

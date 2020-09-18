@@ -24,14 +24,15 @@ function editArticle(array $params = []) : bool {
 }
 // удаление статьи по ID
 function removeArticle(array $params = []) : bool {
-    $sql = "DELETE FROM articles WHERE art_id = :art_id";
+    // $sql = "DELETE FROM articles WHERE art_id = :art_id";
+    $sql = "UPDATE articles SET `moderation`= '2' WHERE art_id = :art_id";
     $query = makeQueryToDB($sql, $params);
         return true;
 }
 // проверка существования статьи по ID
 function checkArticleExist(array $params = []) : array {
     $sql = "SELECT EXISTS(SELECT `art_id` FROM articles WHERE art_id = :art_id) as 'exist'";
+        return getQuery($sql, $params, 'one');
         // $query = makeQueryToDB($sql, $params);
         // return $query->fetch();
-        return getQuery($sql, $params, 'one');
     }

@@ -1,7 +1,7 @@
 <div id="content">
     <?php if($editStatus): ?>
         <p>Your article was successfully edited!</p>
-        <a href="index.php">Return to main page</a><br>
+        <a href="/">Return to main page</a><br>
     <?php else: ?>
         <form method="post">
             <input type="hidden" name="id" value="<?=$article['art_id']?>">
@@ -22,7 +22,7 @@
             <p><?=$errMsg ?? ''?></p>
         </form>
         <hr>
-        <a href="index.php?point=article&id=<?=$article['art_id']?>">Go back</a><br>
-        <a href="index.php">Move to main page</a>
+        <a href="/article/<?=$article['art_id']?>">Go back</a><br>
+        <a href="/">Move to main page</a>
     <?php endif; ?>
 </div>

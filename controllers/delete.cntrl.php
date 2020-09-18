@@ -1,6 +1,6 @@
 <?php
     makesVisitLog ();
-    $params['art_id'] = (int) val($_GET['id'] ?? 0);
+    $params['art_id'] = (int) val(URL_PARAMS[2] ?? 0);
     $isArticle = checkArticleExist($params);
     $title = "Article Deleted";
 

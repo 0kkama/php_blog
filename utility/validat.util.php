@@ -9,14 +9,30 @@ function val (string $inputStr, int $key = 1) : string {
     }
     return $inputStr;
 }
-// проверка заполненности всех полей при создании новой статьи
+// проверка заполненности всех полей при создании/редактировании статьи
 function checkParams(array $params) : string {
     $errMsg = '';
+    $errors = [];
     foreach ($params as $key => $value) {
-        if (!$value) {
-            $errMsg .= 'Fill in all the fields on the form! Missed:' . " $key" .' <br>';
-            }
+        if ($value === '') {
+
+            switch($key):
+                case 'art_id': $errors[] = 'номер '; break;
+                case 'user_id': $errors[] = 'автор '; break;
+                case 'content': $errors[] = 'контент '; break;
+                case 'title': $errors[] = 'заголовок '; break;
+                case 'cat_id': $errors[] = 'категория '; break;
+            endswitch;
+        }
     }
+        $length = count($errors);
+        if($length !== 0):
+            foreach($errors as $key => $value) {
+                $errMsg .= $value;
+            }
+            $errMsg = 'Заполните все поля формы! Пропущено: ' . $errMsg;
+        endif;
+
         return $errMsg;
 }
 

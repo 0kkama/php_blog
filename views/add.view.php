@@ -2,7 +2,7 @@
 <div id="content">
     <?php if($sendStatus ?? false): ?>
         <p>Your article is sent!</p>
-        <a href="index.php">Return to main page</a><br>
+        <a href="/">Return to main page</a><br>
         <a href="index.php?point=add">Add another article</a>
     <?php else: ?>
         <form method="post">
@@ -28,6 +28,6 @@
             <p><?=$errMsg ?? ''?></p>
         </form>
         <hr>
-        <a href="index.php">Move to main page</a>
+        <a href="/">Move to main page</a>
             <?php endif; ?>
 </div>

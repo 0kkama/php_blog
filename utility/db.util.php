@@ -33,11 +33,24 @@ function checkQueryErr(PDOStatement $query) : bool {
 // передает запрос и параметры методам PDO и возращает массив с данными
 function getQuery(string $sql, array $params = [], string $fetchType = 'all') : array {
     $query = makeQueryToDB($sql, $params);
+        $result = [];
+
     switch ($fetchType):
         // разобраться с ошибкой в случае неверного запроса
-        case 'all': return $query->fetchAll(); break;
-        case 'one': return $query->fetch(); break;
+        case 'all': $result = $query->fetchAll(); break;
+        case 'one': $result = $query->fetch(); break;
     endswitch;
+
+        if (is_array($result)) {
+            return $result;
+        } else {
+            return [];
+        }
+    // switch ($fetchType):
+    //     // разобраться с ошибкой в случае неверного запроса
+    //     case 'all': return (array) $query->fetchAll(); break;
+    //     case 'one': return (array) $query->fetch(); break;
+    // endswitch;
 }
 
 

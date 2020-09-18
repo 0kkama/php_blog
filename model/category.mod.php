@@ -16,7 +16,7 @@ function getOneCategory(array $params) : array {
 function getArticlesInCategory(array $params) : array {
     $sql = "SELECT articles.art_id, articles.title, articles.content, articles.author, category.cat_name, category.cat_id, category.url
     FROM articles, category
-    WHERE articles.cat_id = category.cat_id AND category.cat_id = :id
+    WHERE articles.cat_id = category.cat_id AND category.cat_id = :id AND `moderation` = '1'
     ORDER BY articles.date DESC";
     return getQuery($sql, $params);
 }
@@ -31,12 +31,8 @@ function getCategoriesQuantName(array $params) : array {
     $sql = "SELECT
     (SELECT COUNT(cat_name) FROM category) AS quant,
     (SELECT cat_name FROM category WHERE cat_id = :id) AS name";
-    // $result = getQuery($sql, $params ,'one');
     return getQuery($sql, $params, 'one');
+    // $result = getQuery($sql, $params ,'one');
     // return $result;
 }
-// function getCatergoryID() {
-//     $sql = "SELECT cat_id FROM categories WHERE login = :author ";
-//     $query = makeQueryToDB($sql);
-//           return $query->fetchAll();
-//     }
+

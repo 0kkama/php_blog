@@ -15,5 +15,5 @@ if (isset($_GET['datelog'])) {
 <head>
     <title>logs</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="/css/styles.css" />
 </head>

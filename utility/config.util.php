@@ -6,6 +6,7 @@ declare(strict_types=1);
 
 // -- -- -- -- -- -- -- -- -- -- --
 
+    const BASE_URL = '';
     const DB_HOST = 'localhost';
     const DB_NAME = 'lavr_hw';
     const DB_USER = 'admin';
