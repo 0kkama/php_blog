@@ -22,7 +22,7 @@ function editArticle(array $params = []) : bool {
     $query = makeQueryToDB($sql, $params);
         return true;
 }
-// удаление статьи по ID
+// удаление (архивация) статьи по ID
 function removeArticle(array $params = []) : bool {
     // $sql = "DELETE FROM articles WHERE art_id = :art_id";
     $sql = "UPDATE articles SET `moderation`= '2' WHERE art_id = :art_id";

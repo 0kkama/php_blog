@@ -1,9 +1,12 @@
 <div id="content">
-        <div id="content">
-            <h1><?= $title?></h1>
-            <div> <pre> <?= $content?> </pre> </div>
-            <hr>
+    <article class="article">
+        <h1><?= $title?></h1>
+        <p><?= $content?></p>
+        <hr>
+        <div class="article-actions">
             <a href="/delete/<?=$art_id?>">Remove</a><br>
             <a href="/edit/<?=$art_id?>">Edit</a><br>
-            </div>
+        </div>
+    </article>
 </div>
+

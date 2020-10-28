@@ -7,24 +7,35 @@
     <?php else: ?>
         <form method="post">
             Title of your article:<br>
-            <input type="text" name="title" value="<?=$article['title'] ?? '' ?>" size="40"><br>
+            <div class="form-group">
+                <input type="text" name="title" class="form-control" value="<?=$article['title'] ?? '' ?>" size="40" placeholder="Title of your article">
+            </div>
+
             Content of your article:<br>
-            <textarea name="content" cols="57" rows="30"><?=$article['content'] ?? '' ?></textarea><br>
+            <div class="form-group">
+                <textarea name="content" cols="57" class="form-control" rows="30"><?=$article['content'] ?? '' ?></textarea>
+            </div>
             Choose category of your article: <br>
-            <select name='cat_id' size='1'>
+            <div class="form-group">
+            <select name='cat_id' class="custom-select" size='1'>
                 <?php foreach ($categories as $category): ?>
     <option value= <?=$category['cat_id']?> <?=($category['cat_id'] == $article['cat_id']) ? 'selected' : '' ?>> <?=$category['cat_name']?>
                     </option>
                 <?php endforeach; ?>
             </select>
+            </div>
 
-            <select name='user_id' size='1'>
+            User:<br>
+            <div class="form-group">
+            <select name='user_id' class="custom-select" id="inputGroupSelect01">
                 <?php foreach ($authors as $author): ?>
     <option value= <?=$author['user_id']?> <?=($author['user_id'] == $article['user_id']) ? 'selected' : '' ?>> <?=$author['login']?>
                     </option>
                 <?php endforeach; ?>
             </select>
-            <button>Send</button>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
             <p><?=$errMsg ?? ''?></p>
         </form>
         <hr>

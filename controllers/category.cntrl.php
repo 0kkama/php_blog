@@ -1,6 +1,6 @@
  <?php
     makesVisitLog();
-    var_dump($urichunks);
+    var_dump(URL_PARAMS);
 // проверка верности передаваемого ID
     if (!checkID(URL_PARAMS[2])) {
         ifErr404();
