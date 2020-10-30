@@ -19,7 +19,7 @@
             $article['art_id'] = (int) val( $_POST['id']);
             $errMsg = checkParams($article);
 // var_dump_pre($_POST); var_dump_pre($article ?? []); echo '------------ 13';
-        if (!$errMsg) {
+        if ('' === $errMsg) {
             $editStatus = editArticle($article);
             }
    } else {

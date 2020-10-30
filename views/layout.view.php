@@ -10,7 +10,8 @@
 <body>
     <div class="root">
         <header id='header'>
-            <a href="/add">Add article</a>
+            <a href="/">Main</a>
+            | <a href="/add">Add article</a>
             | <a href="/logs">Go to logs</a>
             | <a href="/info">Go to info</a>
         </header>
@@ -34,6 +35,7 @@
         </main>
 
         <footer id="footer">
+
             <div>
                 <ul>
                     <?php foreach($categories as $category): ?>

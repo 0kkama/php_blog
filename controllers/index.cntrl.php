@@ -1,7 +1,7 @@
 <?php
 
     makesVisitLog();
-    $articles = getArticlesList();
+    // $articles = getArticlesList();
 
     $title = 'Main page';
-    $content = template('index.view.php', ['articles' => $articles]);
+    $content = template('index.view.php', ['articles' => getArticlesList()]);

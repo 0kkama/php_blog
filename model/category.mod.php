@@ -10,7 +10,7 @@ function getCategoriesList() : array {
 // получение конкретной категории по ID
 function getOneCategory(array $params) : array {
     $sql = "SELECT * FROM category WHERE cat_id = :id";
-    return getQuery($sql, $params);
+    return getQuery($sql, $params, 'one');
 }
 // получение всех статей в данной категории
 function getArticlesInCategory(array $params) : array {

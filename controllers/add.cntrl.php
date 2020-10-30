@@ -13,7 +13,8 @@
         var_dump($article);
         $article['author'] = getUserLogin($_POST['user_id']);
         $errMsg = checkParams($article);
-        if (!$errMsg) {
+        // если все поля заполнены (сообщение ошибок - пустая строка), то добавляем статью
+        if ('' === $errMsg) {
            $sendStatus = addArticle($article);
         }
     endif;
@@ -25,7 +26,6 @@
         'errMsg' => $errMsg,
         'sendStatus' => $sendStatus,
         ]);
-
 
     // echo 'POST:'; var_dump_pre($_POST); echo 'article:'; var_dump_pre($article ?? []);
 
