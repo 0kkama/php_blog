@@ -10,6 +10,7 @@ function val (string $inputStr, int $key = 1) : string {
     }
     return $inputStr;
 }
+
 // проверка заполненности всех полей при создании/редактировании статьи
 function checkParams(array $params) : string {
     // допилить эту хрень или оставить как есть?
@@ -42,6 +43,11 @@ function checkParams(array $params) : string {
 // проверяет верность переданного ID по шаблону
 function checkID(string $ID) : bool {
     return (bool) preg_match('/^[1-9]+\d*$/', $ID);
+}
+
+// проверяет верность переданного url по шаблону
+function checkURL (string $url) : bool {
+    return (bool) preg_match('/^[a-z]*$/', $url);
 }
 
 // вызывает ошибку 404 , прерывает выполнение кода

@@ -5,7 +5,7 @@ include_once ('utility/config.util.php');
 function makeCnnctToDB() : PDO {
     // *1 static
     static $dbConnection;
-        if($dbConnection === null){
+        if($dbConnection === null) {
             $dbConnection = new PDO(
                 'mysql:host='.DB_HOST.';dbname='.DB_NAME.';charset='.DB_CHAR,
                 DB_USER,DB_PASS,

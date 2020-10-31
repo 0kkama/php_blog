@@ -9,14 +9,14 @@ function getCategoriesList() : array {
 }
 // получение конкретной категории по ID
 function getOneCategory(array $params) : array {
-    $sql = "SELECT * FROM category WHERE cat_id = :id";
+    $sql = "SELECT * FROM category WHERE url = :url";
     return getQuery($sql, $params, 'one');
 }
 // получение всех статей в данной категории
 function getArticlesInCategory(array $params) : array {
     $sql = "SELECT articles.art_id, articles.title, articles.content, articles.author, category.cat_name, category.cat_id, category.url
     FROM articles, category
-    WHERE articles.cat_id = category.cat_id AND category.cat_id = :id AND `moderation` = '1'
+    WHERE articles.cat_id = category.cat_id AND category.url = :url AND `moderation` = '1'
     ORDER BY articles.date DESC";
     return getQuery($sql, $params);
 }

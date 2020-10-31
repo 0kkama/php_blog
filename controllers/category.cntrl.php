@@ -1,12 +1,12 @@
  <?php
     makesVisitLog();
-    var_dump(URL_PARAMS);
+    // var_dump(URL_PARAMS);
 // проверка верности передаваемого ID
-    if (false === checkID(URL_PARAMS[2])) {
+    if (false === checkURL(URL_PARAMS[2])) {
         ifErr404();
     }
 
-    $category['id'] = (int) val(URL_PARAMS[2]);
+    $category['url'] = (string) val(URL_PARAMS[2]);
     $isExist = getOneCategory($category);
     // var_dump($isExist);
 // проверка существования указанной категории

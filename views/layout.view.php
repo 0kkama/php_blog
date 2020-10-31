@@ -23,7 +23,7 @@
                         <nav>
                             <ul>
                                 <?php foreach($categories as $category): ?>
-                                    <li><a href="/category/<?=$category['cat_id'];?>"> <?=$category['cat_name'];?> </a></li>
+                                    <li><a href="/category/<?=$category['url'];?>"> <?=$category['cat_name'];?> </a></li>
                                 <?php endforeach; ?>
                             </ul>
                         </nav>
@@ -39,7 +39,7 @@
             <div>
                 <ul>
                     <?php foreach($categories as $category): ?>
-                        <li style='display:inline;margin-right:15px'><a href="/category/<?=$category['cat_id'];?>"><?=$category['cat_name'];?> </a></li>
+                        <li style='display:inline;margin-right:15px'><a href="/category/<?=$category['url'];?>"><?=$category['cat_name'];?> </a></li>
                     <?php endforeach; ?>
                 </ul>
             </div>
