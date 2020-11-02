@@ -1,7 +1,7 @@
 <?php
     include_once ('utility/config.util.php');
     // фуи по созданию и просмотру логов
-    $GLOBALS['logRegExp'] = '/[0-9\-]{10}\.log$/'; // глобаль для проверки имен файлов с логами
+    // $GLOBALS['logRegExp'] = '/[0-9\-]{10}\.log$/'; // глобаль для проверки имен файлов с логами
 
     // фуя записывающая запросы пользователся к конкретным страницам в лог
     function makesVisitLog () : bool {
@@ -25,7 +25,9 @@
     }
 
     function checkLogName (string $logName) : bool {
-        return (bool) preg_match($GLOBALS['logRegExp'], $logName);
+        static $logRegExp = '/[0-9\-]{10}\.log$/';
+        // return (bool) preg_match($GLOBALS['logRegExp'], $logName);
+        return (bool) preg_match($logRegExp, $logName);
     }
 // cписок существующих логов в порядке от последенего по дате
     function showLogsList() : string {
@@ -33,9 +35,10 @@
         ob_start();
         echo '<div class="logs"><ul>';
             foreach($logList as $key => $log):
+                // echo "<li><a href='index.php?point=logs&datelog=$log'>$log</a></li>";
                 echo "<li><a href='index.php?point=logs&datelog=$log'>$log</a></li>";
             endforeach;
-        echo '</ul></div><br><a href="index.php">Return to main page</a>';
+        echo '</ul></div><br><a href="/">Return to main page</a>';
         return ob_get_clean();
     }
 // содержание конкретного лога, начиная с последнего по времени запроса
@@ -51,6 +54,7 @@
                     echo "<li style='background-color: crimson'>$logLine</li>";
                 }
             endforeach;
+            // echo '</ol></div><br><a href="index.php?point=logs">Return to logs list</a>';
             echo '</ol></div><br><a href="index.php?point=logs">Return to logs list</a>';
             return ob_get_clean();
         } else {

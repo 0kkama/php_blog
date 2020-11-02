@@ -57,3 +57,24 @@ function ifErr404() : void {
     echo template('errors/error404.view.php');
     exit();
 }
+
+// проверка значений константы URL_PARAMS на корректность
+function checkURLparams (array $params) : bool {
+    foreach ($params as $value) {
+        if (!preg_match('/[a-zA-Z0-9]*/', $value)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+//
+function parseRequestURI (string $requestUrl) : bool {
+   $reg = '@(\/\/)|[^\s\/a-zA-Z0-9]+@';
+   // $reg = '@(\/\/)|[^\s\/a-zA-Z0-9]*@';
+   // $reg = '/[^\s\/a-zA-Z0-9]*/';
+   if (preg_match($reg, $requestUrl)) {
+        return true;
+    }
+    return false;
+}

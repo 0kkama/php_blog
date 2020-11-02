@@ -7,6 +7,7 @@
 </head>
 <body>
     <div class="e404">
+        <?= $_SERVER['REQUEST_URI']?>
             <h1>Страница не найдена!</h1>
             <a href="/">Move to main page</a>
     </div>
