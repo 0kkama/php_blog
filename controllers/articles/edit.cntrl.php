@@ -6,7 +6,7 @@
     $categories = getCategoriesList();
 
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-        $article['art_id'] = (int) val( URL_PARAMS[2] ?? 0 );
+        $article['art_id'] = (int) val( URL_PARAMS['art_id'] ?? 0 );
         $article = getOneArticle($article);
 // при попытке отредактировать несуществующую статью
             if(!(bool) $article) {

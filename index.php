@@ -1,44 +1,55 @@
 <?php
+
     include_once ('utility/config.util.php');
     include_once('hub.php');
-    // по работе ЧПУ - см. location в lavr.conf
-    if (parseRequestURI($_SERVER['REQUEST_URI'])) {
-         ifErr404();
-    }
-
-
-    // $querysystemurl = $_GET['querysystemurl'] ?? '';
-    $querysystemurl = $_SERVER['REQUEST_URI'] ?? '';
-    define('URL_PARAMS', parseURL($querysystemurl));
-
-    echo 'SERVER: ' . $_SERVER['REQUEST_URI']; echo '<br> GET: '; var_dump($_GET);
-    echo '<br> querysystemurl: '; var_dump($querysystemurl); echo '<br> URL_PARAMS: ' ; var_dump(URL_PARAMS);
-
-    $control = URL_PARAMS[1] ?? 'index';
-
-    if (checkURLparams(URL_PARAMS)):
-        $path = "controllers/$control.cntrl.php";
-    else:
+// по работе ЧПУ - см. location в lavr.conf
+    // $title = 'Error404';
+    // $content = template('errors/404.view.php');
+    $requestURI = $_SERVER['REQUEST_URI'];
+    // var_dump($requestURI);
+    if (checkRequestURI($requestURI)):
         ifErr404();
-    endif;
-
-
-    // проверка существования контроллера и корректности его имени
-    if ( file_exists($path) && preg_match('/[a-z]{3,20}/', $control) ):
-        // подключение контроллера, формирующего переменные и создающего контентную часть или вызов ошибки
-        include_once($path);
+        // $control = "errors/404";
     else:
-         ifErr404();
+        $routes = include('routes.php');
+        $variable = parseURL($requestURI, $routes);
+        // var_dump($variable);
+        define('URL_PARAMS', $variable['params']);
+        $control = $variable['controller'];
+        $path = "controllers/$control.cntrl.php";
+    if (!file_exists($path)) {
+        ifErr404();
+    } else {
+        include_once($path);
+    }
     endif;
 
-    $categories = getCategoriesList();
-    // подключение лэйаута
-    echo template('layout.view.php', ['title' => $title, 'content' => $content, 'categories' =>  $categories]);
+        // var_dump($path);
+// проверка существования контроллера
+// подключение контроллера, формирующего переменные и контентную часть
+// подключение лэйаута
+    echo template('layout.view.php',
+        [
+            'title' => $title,
+            'content' => $content,
+            'categories' =>  getCategoriesList()
+        ]);
+
+
+
+
+
+
+
+
+
 
 // фиолет #6868B1
     // фиалки #CCCCFF
 // темнофиолет #4F5B93
-// чутьменеетемнофиолет #7570C7
+    // чутьменеетемнофиолет #7570C7
 // темнозелень #677F87
     // желтый для ссылок #e1cc5a
+// Sdfsf4
+//  dsfsadferoi9034
 

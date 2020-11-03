@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Error 404</title>
+    <title>Ошибка 404</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="/css/styles.css" />
 </head>

@@ -50,14 +50,6 @@ function checkURL (string $url) : bool {
     return (bool) preg_match('/^[a-z]*$/', $url);
 }
 
-// вызывает ошибку 404 , прерывает выполнение кода
-function ifErr404() : void {
-    // фигурные скобки нужны, для экранирования переменной в строке.
-    header("{$_SERVER['SERVER_PROTOCOL']} 404 Not Found");
-    echo template('errors/error404.view.php');
-    exit();
-}
-
 // проверка значений константы URL_PARAMS на корректность
 function checkURLparams (array $params) : bool {
     foreach ($params as $value) {
@@ -69,12 +61,25 @@ function checkURLparams (array $params) : bool {
 }
 
 //
-function parseRequestURI (string $requestUrl) : bool {
-   $reg = '@(\/\/)|[^\s\/a-zA-Z0-9]+@';
+function checkRequestURI (string $requestUrl) : bool {
+   $reg = '@(\/\/)|[^\s\/a-zA-Z0-9_-]+@';
    // $reg = '@(\/\/)|[^\s\/a-zA-Z0-9]*@';
    // $reg = '/[^\s\/a-zA-Z0-9]*/';
    if (preg_match($reg, $requestUrl)) {
         return true;
     }
     return false;
+}
+
+// вызывает ошибку 404 , прерывает выполнение кода
+// function ifErr404() : void {
+//     // фигурные скобки нужны, для экранирования переменной в строке.
+//     header("{$_SERVER['SERVER_PROTOCOL']} 404 Not Found");
+//     echo template('errors/error404.view.php');
+//     exit();
+// }
+
+function ifErr404() : void {
+    // фигурные скобки нужны, для экранирования переменной в строке.
+    include_once('controllers/errors/404.cntrl.php');
 }

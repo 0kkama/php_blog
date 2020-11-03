@@ -10,10 +10,10 @@
 <body>
     <div class="root">
         <header id='header'>
-            <a href="/">Main</a>
+            | <a href="/">Main</a>
             | <a href="/add">Add article</a>
-            | <a href="/logs">Go to logs</a>
-            | <a href="/info">Go to info</a>
+            | <a href="/logs">Logs</a>
+            | <a href="/info">Info</a>
         </header>
 
         <main>

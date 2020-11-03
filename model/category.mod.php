@@ -36,3 +36,20 @@ function getCategoriesQuantName(array $params) : array {
     // return $result;
 }
 
+function addCategoty(array $params = []) : bool {
+    $sql = "INSERT INTO category (cat_name, url) VALUES (:cat_name, :url)";
+    makeQueryToDB($sql, $params);
+        return true;
+}
+
+function editCategory(array $params = []) : bool {
+    $sql = "UPDATE category SET cat_name = :cat_name, url = :url WHERE cat_id = :cat_id";
+    makeQueryToDB($sql, $params);
+        return true;
+}
+
+function removeCategory(array $params = []) : bool {
+    $sql = "UPDATE category SET `stat`= '0' WHERE cat_id = :cat_id";
+    makeQueryToDB($sql, $params);
+        return true;
+}
