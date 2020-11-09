@@ -18,7 +18,7 @@
         }
     endif;
 
-    $content = template('add.view.php', [
+    $content = template('articles/add.view.php', [
         'categories' => $categories,
         'authors' => $authors,
         'article' => $article,

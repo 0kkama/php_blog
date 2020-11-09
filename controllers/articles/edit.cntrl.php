@@ -29,7 +29,7 @@
 // include('views/edit.view.php');
     $title = 'Edit: ' . $article['title'];
 
-      $content = template('edit.view.php',[
+      $content = template('articles/edit.view.php',[
         'article' => $article,
         'categories' => $categories,
         'editStatus' => $editStatus,

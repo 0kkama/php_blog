@@ -1,5 +1,4 @@
 <div id="content">
-    <hr>
-    Article deleted!
+    <h1>Article deleted! </h1>
     <a href="/"> Move to main page </a>
 </div>

@@ -12,7 +12,7 @@
         // var_dump($article);
             if([] !== $article) {
                 $title = $article['title'];
-                $content = template('article.view.php', $article);
+                $content = template('articles/article.view.php', $article);
             }
             else { // если статья не найдена
              // include_once('controllers/errors/404.cntrl.php');

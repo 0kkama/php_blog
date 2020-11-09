@@ -47,7 +47,7 @@ function checkID(string $ID) : bool {
 
 // проверяет верность переданного url по шаблону
 function checkURL (string $url) : bool {
-    return (bool) preg_match('/^[a-z]*$/', $url);
+    return (bool) preg_match('/^[a-z]{3,}$/i', $url);
 }
 
 // проверка значений константы URL_PARAMS на корректность
@@ -71,7 +71,41 @@ function checkRequestURI (string $requestUrl) : bool {
     return false;
 }
 
-// вызывает ошибку 404 , прерывает выполнение кода
+// возвращает false, если в строке присутствует что-то, кроме кириллических символов
+function checkRUword (string $name) : bool {
+    if (preg_match('/[^а-яё]+/ui', $name)) {
+        return false;
+    }
+    return true;
+}
+
+// вызывает ошибку 404
+function ifErr404() : void {
+    // фигурные скобки нужны для экранирования переменной в строке.
+    include_once('controllers/errors/404.cntrl.php');
+}
+
+// проверяет название новой категории на совпадение с одним из зарезервированных слов
+function checkForbiddenWords(string $str) : bool {
+    $forbidWords = ['add', 'edit', 'delete', 'category', 'revision', 'article',
+                    'info', 'logs', 'index', 'users', 'user', 'error', 'errors',];
+    foreach ($forbidWords as $word) {
+            if ($str === $word) {
+                return false;
+            }
+        return true;
+    }
+}
+
+
+
+
+
+
+
+
+
+
 // function ifErr404() : void {
 //     // фигурные скобки нужны, для экранирования переменной в строке.
 //     header("{$_SERVER['SERVER_PROTOCOL']} 404 Not Found");
@@ -79,7 +113,3 @@ function checkRequestURI (string $requestUrl) : bool {
 //     exit();
 // }
 
-function ifErr404() : void {
-    // фигурные скобки нужны, для экранирования переменной в строке.
-    include_once('controllers/errors/404.cntrl.php');
-}

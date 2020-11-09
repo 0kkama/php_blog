@@ -8,10 +8,12 @@ return
 
         return
         [
+            // роутер главной страницы
             [
                 'test' => "/^\/?$/",
                 'controller' => "index"
             ],
+            // роутеры для работы со статьями
             [
                 'test' => "/^\/?add\/?$/",
                 'controller' => "articles/add"
@@ -31,6 +33,7 @@ return
                 'controller' => "articles/delete",
                 'params' => ['art_id' => 1]
             ],
+            // роутеры для работы с категориями
             [
                 'test' => "/^\/?category\/($normUrl)\/?$/",
                 'controller' => "categories/category",
@@ -38,13 +41,24 @@ return
 
             ],
             [
+                'test' => "/^\/?revision\/?$/",
+                'controller' => "categories/revision",
+                // 'params' => ['url' => 1]
+
+            ],
+            [
                 'test' => "/^\/?addcat\/($normUrl)\/?$/",
-                'controller' => "categories/category",
+                'controller' => "categories/add",
                 'params' => ['url' => 1]
             ],
             [
                 'test' => "/^\/?deletecat\/($normUrl)\/?$/",
                 'controller' => "categories/delete",
+                'params' => ['url' => 1]
+            ],
+            [
+                'test' => "/^\/?editcat\/($normUrl)\/?$/",
+                'controller' => "categories/edit",
                 'params' => ['url' => 1]
             ],
         ];

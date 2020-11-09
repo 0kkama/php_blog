@@ -8,6 +8,7 @@
     include_once ('utility/arr.util.php');
     include_once ('utility/system.util.php');
     include_once ('utility/logs.util.php');
+    include_once ('utility/str.util.php');
 
     include_once ('model/art.mod.php');
     include_once ('model/users.mod.php');

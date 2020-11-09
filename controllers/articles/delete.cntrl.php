@@ -8,7 +8,7 @@
 
 if ($isArticle['exist'] === '1'):
     removeArticle($params);
-    $content = template('delete.view.php');
+    $content = template('articles/delete.view.php');
     // header('Location: /');
         // exit();
     // include('views/delete.view.php');

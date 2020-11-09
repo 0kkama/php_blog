@@ -12,6 +12,7 @@
         <header id='header'>
             | <a href="/">Main</a>
             | <a href="/add">Add article</a>
+            | <a href="/revision">Edit categories</a>
             | <a href="/logs">Logs</a>
             | <a href="/info">Info</a>
         </header>
