@@ -61,7 +61,6 @@ function isCategoryEmpty (array $params = []) : string {
     ORDER BY articles.date DESC";
         return getQuery($sql, $params, 'one')['quant'];
 }
-
 // проверка существования категории вне зависимости от её статуса. Как по url, так и по cat_name
 function checkCategory(array $params) : array {
     // $sql1 = "SELECT EXISTS(SELECT * FROM category WHERE url = :url or cat_name = :cat_name) as 'existst'";
@@ -69,32 +68,34 @@ function checkCategory(array $params) : array {
     return getQuery($sql, $params, 'all');
     // $sql2
 }
-
+// проверка имени и урл добавляемой/редактируемой категории на повтор из уже существующих в БД
 function checkCatRepeats(array $params) : array {
-    $exist = [];
-    // $sql1 = "SELECT EXISTS(SELECT * FROM category WHERE cat_name = :cat_name) as 'NAME'";
-    // $sql2 = "SELECT EXISTS(SELECT * FROM category WHERE url = :url) as 'URL'";
-    $sql = "SELECT (SELECT EXISTS(SELECT * FROM category WHERE cat_name = :cat_name)) as name,
+    // вариант запроса при редактировании уже сществующей категории
+    if (isset($params['cat_id'])) {
+        $sql = "SELECT (SELECT EXISTS(SELECT * FROM category WHERE cat_name = :cat_name AND cat_id != :cat_id)) as name,
+        (SELECT EXISTS(SELECT * FROM category WHERE url = :url AND cat_id != :cat_id)) as url";
+    } // вариант запроса при добавлении новой категории
+    else {
+        $sql = "SELECT (SELECT EXISTS(SELECT * FROM category WHERE cat_name = :cat_name)) as name,
             (SELECT EXISTS(SELECT * FROM category WHERE url = :url)) as url";
-    $exist = getQuery($sql,$params, 'one');
-    return $exist;
+    }
+    return  getQuery($sql,$params, 'one');
 }
-
 
 // проверка корректности данных для новой категории
 function validationCatParams(array $catParams) : string {
     $errorArray = [];
     $errorMessage = '';
-
+    // первая проверка на использование только допустимых символов
     $nameCorrectness = checkRUword($catParams['cat_name']);
     $urlCorrectness = checkURL($catParams['url']);
 
     $catParams['cat_name'] = makeFrstLttrUp(val($catParams['cat_name']));
     $catParams['url'] = strtolower(val($catParams['url']));
+    // проверка урл на совпадение с запрещёнными/зарезервированными словами (index, artictle, edit и т.д.)
     $forbidden = checkForbiddenWords($catParams['url']);
-
+    // сравнение имени и урл с уже имеющимися в БД
     $repeatCheck = checkCatRepeats($catParams);
-    // var_dump($repeatCheck);
 
     if ($nameCorrectness !== true) {
         $errorArray[] = 'Ошибка: название категории должно состоять только из кириллических символов';
@@ -120,41 +121,3 @@ function validationCatParams(array $catParams) : string {
         }
     return $errorMessage;
 }
-
-
-
-
-
-//             // первая проверка урла на корректность символов
-//         if ($urlCorrectness === true) {
-//             $urlCorrectness = checkForbiddenWords($catParams['url']);
-//                 // проверка названия на корректность символов
-//             if ($nameCorrectness === true) {
-//                     // проверка урла на использование зарезервированных слов
-//                 if ($urlCorrectness === true) {
-//                     // проверка урла и названия на совпадение с уже существующими в БД
-//                     if ([] === $repeatCheck) {
-//                         addCategory($catParams);
-//                         header('Location: /revision');
-//                     }
-//                     else {
-//                         $errorMessage = 'Ошибка: используется уже существущий url или имя для категории';
-//                         // exit('4 - используется уже существущий урл или имя категории');
-//                     }
-//                 }
-//                 else {
-//                     $errorMessage = 'Ошибка: в url используется недопустимое слово';
-//                     // exit('3 - в УРЛ используется недопустимое слово');
-//                 }
-//             }
-//             else {
-//                 $errorMessage = 'Ошибка: название категории должно состоять только из кириллических символов';
-//                 // exit('2 - первая проверка имени');
-//             }
-//         }
-//         else {
-//             $errorMessage = 'Ошибка: url должен состоять только из символов латинского алфавита';
-//             // exit('1 - первая проверка урла');
-//         }
-
-// }

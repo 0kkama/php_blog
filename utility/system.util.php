@@ -7,8 +7,7 @@ function template (string $path, array $variables = []) : string {
     include($supaDupaFullPathToTemplate);
     return ob_get_clean();
 }
-
-    // фуя разбивает url строку по '/', удаляет пустые значения и возвращает массив с параметрами
+// фуя разбивает url строку по '/', удаляет пустые значения и возвращает массив с параметрами
 function parseURL (string $url, array $routes) : array {
     $resources = ['controller' => 'errors/404', 'params' => []];
 

@@ -2,7 +2,7 @@
     include_once ('utility/config.util.php');
 
 // короткоименная фуя для простой обработки данных, вводимых пользователем.
-function val (string $inputStr, int $key = 1) : string {
+function val(string $inputStr, int $key = 1) : string {
     switch ($key) {
         case 1: $inputStr = trim(strip_tags($inputStr)); break;
         case 2: $inputStr = trim(htmlspecialchars($inputStr)); break;
@@ -96,20 +96,4 @@ function checkForbiddenWords(string $str) : bool {
         return true;
     }
 }
-
-
-
-
-
-
-
-
-
-
-// function ifErr404() : void {
-//     // фигурные скобки нужны, для экранирования переменной в строке.
-//     header("{$_SERVER['SERVER_PROTOCOL']} 404 Not Found");
-//     echo template('errors/error404.view.php');
-//     exit();
-// }
 

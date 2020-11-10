@@ -1,6 +1,5 @@
 <div id="content">
     <form method="post">
-        <input type="hidden" name="id" value="<?=$category['cat_id']?>">
         Edit name of your category:<br>
             <div class="form-group">
                 <input type="text" name="cat_name" class="form-control" value="<?=$category['cat_name'] ?? '' ?>" size="40" placeholder="Название категории">
