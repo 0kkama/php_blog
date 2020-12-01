@@ -13,7 +13,7 @@
         <p><?=$errMsg ?? ''?></p>
     </form>
     <hr>
-    <a href="/revision">Go back</a><br>
-    <a href="/">Move to main page</a>
+    <a href="<?=ROOT_URL?>categories/revision">Go back</a><br>
+    <a href="<?=ROOT_URL?>">Move to main page</a>
 </div>
 

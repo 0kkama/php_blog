@@ -4,7 +4,7 @@
             <h1><?=$article['title']?></h1>
             <blockquote><i> <?= 'by ' . $article['author'];?></i></blockquote>
             <p><?=mb_substr($article['content'], 0, 100) . '...';?></p>
-            <a href="/article/<?=$article['art_id']?>">Read more</a>
+            <a href="<?=ROOT_URL . 'article/' . $article['art_id']?>">Read more</a>
         </div>
     <?php endforeach; ?>
 </div>

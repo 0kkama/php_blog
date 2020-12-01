@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+// фуя перехвата ошибок
 function err_catcher (int $errNo, string $errMsg, string $errFile, string $errLine) : void {
     if ( $errNo === E_USER_ERROR ) {
         // если ошибка сурьёзная

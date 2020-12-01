@@ -1,7 +1,5 @@
 <?php
-include_once ('utility/config.util.php');
-    // создает новый объект соединения с БД или возвращает уже существующий
-
+// создает новый объект соединения с БД или возвращает уже существующий
 function makeCnnctToDB() : PDO {
     // *1 static
     static $dbConnection;

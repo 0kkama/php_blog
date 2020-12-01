@@ -27,13 +27,3 @@ function parseURL (string $url, array $routes) : array {
         }
         return $resources;
 }
-
-// function parseURL (string $querysystemurl) : array {
-    // $urichunks = explode('/', $querysystemurl);
-    // foreach ($urichunks as $key => $value) {
-    //     if('' === $value) {
-    //         unset($urichunks[$key]);
-    //     }
-    // }
-    // return $urichunks;
-    // }

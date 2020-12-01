@@ -1,6 +1,12 @@
 <?php
 
     makesVisitLog();
+
+    if($user === null || $user === [] || $user['status'] !== 'admin') {
+        header('Location: ' . ROOT_URL);
+        exit();
+    }
+
     $errMsg = '';
 
 // добавить проверку при попытке редактировать несуществующую категорию
@@ -20,7 +26,10 @@
             // $changeCategory['url'] = strtolower(val($changeCategory['url']));
             // $сategory['cat_name'] = makeFrstLttrUp(val($changeCategory['cat_name']));
 
-            // происходящее ниже является непонятным шаманством, но верхние две строчки не работают, а так работает
+            // происходящее ниже является непонятным шаманством, но верхние две строчки не работают,
+            // при том, что аналогичные строчки корректно работают в контроллере revision.cntrl.php
+
+            // а так работает:
             $catName = $changeCategory['cat_name'];
             $catURL = $changeCategory['url'];
             $catName = makeFrstLttrUp(val($catName));
@@ -30,7 +39,7 @@
                 $changeCategory['url'] = $catURL;
 
             editCategory($changeCategory);
-            header('Location: /revision');
+            header('Location: ' ROOT_URL . 'categories/revision');
         }
     }
 

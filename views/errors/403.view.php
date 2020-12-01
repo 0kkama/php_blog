@@ -1,7 +1,9 @@
 <main>
-    <h1>Error 404</h1>
+    <h1>Error 403</h1>
     <div class="alert alert-warning">
-        <p>Page not found!</p>
+        <!-- <p>YOU SHALL NOT PASS!</p> -->
+        <h1>YOU SHALL NOT PASS!</h1>
+
         <a href="<?=ROOT_URL?>">Move to main page</a>
     </div>
 </main>

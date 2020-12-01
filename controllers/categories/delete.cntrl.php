@@ -1,5 +1,11 @@
 <?php
     makesVisitLog();
+
+    if(empty($user) || $user['status'] !== 'admin') {
+        header('Location: ' . ROOT_URL);
+        exit();
+    }
+
     $errors = '';
     $category['url'] = URL_PARAMS['url'];
     $existence = getOneCategory($category);
@@ -17,7 +23,7 @@
     } // если категорию можно удалить
     else {
         removeCategory($category);
-        header('Location: /revision');
+        header('Location: ' . ROOT_URL . 'categories/revision');
     }
 
 

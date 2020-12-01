@@ -5,12 +5,12 @@ function getCategoriesList() : array {
     $sql = "SELECT * FROM `category` WHERE `stat` = '1' ORDER BY (SELECT COUNT(articles.cat_id) as 'Count'
         FROM articles WHERE  articles.cat_id = category.cat_id AND `moderation` = '1'
         GROUP BY cat_name) DESC";
-        return getQuery($sql);
+            return getQuery($sql);
 }
 // получение конкретной категории по URL
 function getOneCategory(array $params) : array {
     $sql = "SELECT * FROM category WHERE url = :url ";
-    return getQuery($sql, $params, 'one');
+        return getQuery($sql, $params, 'one');
 }
 // получение всех статей в данной категории
 function getArticlesInCategory(array $params) : array {
@@ -18,22 +18,20 @@ function getArticlesInCategory(array $params) : array {
     FROM articles, category
     WHERE articles.cat_id = category.cat_id AND category.url = :url AND `moderation` = '1'
     ORDER BY articles.date DESC";
-    return getQuery($sql, $params);
+        return getQuery($sql, $params);
 }
 // получение числа категорий
 function getCategoriesQuantity() : int {
     $sql = "SELECT COUNT(cat_id) AS cat FROM category";
-    $result = getQuery($sql,[] ,'one')['cat'];
-    return $result;
+    $result = getQuery($sql, [], 'one')['cat'];
+        return $result;
 }
 // возвращает число существующих категорий, а так же имя текущей
 function getCategoriesQuantName(array $params) : array {
     $sql = "SELECT
     (SELECT COUNT(cat_name) FROM category) AS quant,
     (SELECT cat_name FROM category WHERE cat_id = :id) AS name";
-    return getQuery($sql, $params, 'one');
-    // $result = getQuery($sql, $params ,'one');
-    // return $result;
+        return getQuery($sql, $params, 'one');
 }
 // добавить категорию
 function addCategory(array $params = []) : bool {
@@ -63,10 +61,8 @@ function isCategoryEmpty (array $params = []) : string {
 }
 // проверка существования категории вне зависимости от её статуса. Как по url, так и по cat_name
 function checkCategory(array $params) : array {
-    // $sql1 = "SELECT EXISTS(SELECT * FROM category WHERE url = :url or cat_name = :cat_name) as 'existst'";
     $sql = "SELECT * FROM category WHERE url = :url or cat_name = :cat_name";
-    return getQuery($sql, $params, 'all');
-    // $sql2
+        return getQuery($sql, $params, 'all');
 }
 // проверка имени и урл добавляемой/редактируемой категории на повтор из уже существующих в БД
 function checkCatRepeats(array $params) : array {
@@ -79,14 +75,20 @@ function checkCatRepeats(array $params) : array {
         $sql = "SELECT (SELECT EXISTS(SELECT * FROM category WHERE cat_name = :cat_name)) as name,
             (SELECT EXISTS(SELECT * FROM category WHERE url = :url)) as url";
     }
-    return  getQuery($sql,$params, 'one');
+        return  getQuery($sql,$params, 'one');
 }
 
-// проверка корректности данных для новой категории
+// проверка корректности данных для новой категории, возвращает строку с перечислением ошибок
 function validationCatParams(array $catParams) : string {
     $errorArray = [];
     $errorMessage = '';
-    // первая проверка на использование только допустимых символов
+
+    // проверка заполненности форм
+    if (checkEmptyForms($catParams)) {
+        return "Ошибка: заполнены не все поля!";
+    }
+
+    // проверка на использование только допустимых символов
     $nameCorrectness = checkRUword($catParams['cat_name']);
     $urlCorrectness = checkURL($catParams['url']);
 

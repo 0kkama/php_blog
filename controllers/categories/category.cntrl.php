@@ -2,9 +2,9 @@
     makesVisitLog();
     // var_dump(URL_PARAMS);
     // проверка верности передаваемого URL  (!!!!!!!!!  подумать, нужна ли эта проверка вообще)
-   /* if (false === checkURL(URL_PARAMS['url'])) {
-        ifErr404();
-    }*/
+    // if (false === checkURL(URL_PARAMS['url'])) {
+    //     ifErr404();
+    // }
 
     $category['url'] = (string) val(URL_PARAMS['url']);
     $isExist = getOneCategory($category);

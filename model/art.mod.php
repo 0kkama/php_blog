@@ -2,18 +2,25 @@
 // фуи для работы со статьями
 // список свежих публикаций для главной страницы
 function getArticlesList() : array {
-    $sql = "SELECT * FROM `articles` WHERE `moderation` = '1' ORDER BY `date` DESC LIMIT 20";
+    // $sql = "SELECT * FROM `articles` WHERE `moderation` = '1' ORDER BY `date` DESC LIMIT 20";
+    $sql = "SELECT articles.art_id, articles.user_id, articles.cat_id,
+            articles.title, articles.content, articles.author, articles.date,
+            articles.moderation, category.cat_name
+            FROM articles, category
+            WHERE `moderation` = '1' AND articles.cat_id = category.cat_id ORDER BY `date` DESC LIMIT 20";
     return getQuery($sql);
 }
 // получение конкретной статьи по ID
 function getOneArticle (array $params = []) : array {
-    $sql = "SELECT * FROM articles WHERE art_id = :art_id AND `moderation` = '1'";
+    $sql = "SELECT articles.art_id, articles.user_id, articles.cat_id,
+            articles.title, articles.content, articles.author, articles.date,
+            articles.moderation, category.cat_name
+            FROM articles, category WHERE art_id = :art_id AND `moderation` = '1' AND articles.cat_id = category.cat_id";
     return getQuery($sql, $params, 'one');
 }
 // добавление новой статьи в базу
 function addArticle(array $params = []) : bool {
     $sql = "INSERT INTO articles (user_id, cat_id, author, title, content) VALUES (:user_id, :cat_id, :author, :title, :content)";
-    // $query = makeQueryToDB($sql, $params);
     makeQueryToDB($sql, $params);
     return true;
 }
@@ -32,8 +39,7 @@ function removeArticle(array $params = []) : bool {
 }
 // проверка существования статьи по ID со статусом модерации '1'
 function checkArticleExist(array $params = []) : array {
-    $sql = "SELECT EXISTS(SELECT `art_id` FROM articles WHERE art_id = :art_id AND moderation = '1') as 'exist'";
+    $sql = "SELECT EXISTS(SELECT `art_id` FROM articles WHERE art_id = '1045' AND moderation = '1') as 'exist',
+            (SELECT user_id FROM articles WHERE art_id = '1045' AND moderation = '1') as'user_id'";
     return getQuery($sql, $params, 'one');
-        // $query = makeQueryToDB($sql, $params);
-        // return $query->fetch();
 }

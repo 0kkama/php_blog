@@ -1,8 +1,13 @@
 <div id="content">
     <?php if($editStatus): ?>
         <p>Your article was successfully edited!</p>
-        <a href="/">Return to main page</a><br>
+        <a href="<?=ROOT_URL?>">Return to main page</a><br>
     <?php else: ?>
+        <?php if ( !empty($errMsg) ):?>
+            <div class="alert alert-warning">
+                <p> <?= $errMsg ?></p>
+            </div>
+        <?php endif;?>
         <form method="post">
             <input type="hidden" name="id" value="<?=$article['art_id']?>">
             Edit Title of your article:<br>
@@ -23,10 +28,9 @@
             </select>
             </div>
             <button type="submit" class="btn btn-primary">Send</button>
-            <p><?=$errMsg ?? ''?></p>
         </form>
         <hr>
-        <a href="/article/<?=$article['art_id']?>">Go back</a><br>
-        <a href="/">Move to main page</a>
+        <a href="<?=ROOT_URL . 'article/' . $article['art_id']?>">Go back</a><br>
+        <a href="<?=ROOT_URL?>">Move to main page</a>
     <?php endif; ?>
 </div>

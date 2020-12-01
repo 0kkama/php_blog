@@ -1,5 +1,4 @@
 <?php
-    include_once ('utility/config.util.php');
     // фуи по созданию и просмотру логов
     // $GLOBALS['logRegExp'] = '/[0-9\-]{10}\.log$/'; // глобаль для проверки имен файлов с логами
 

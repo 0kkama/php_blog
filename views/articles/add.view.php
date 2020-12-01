@@ -1,10 +1,15 @@
 
 <div id="content">
     <?php if($sendStatus): ?>
-        <p>Your article is sent!</p>
-        <a href="/">Return to main page</a><br>
-        <a href="/add">Add another article</a>
+        <p>Your article was sent!</p>
+        <a href="<?=ROOT_URL?>">Return to main page</a><br>
+        <a href="<?=ROOT_URL?>article/add">Add another article</a>
     <?php else: ?>
+        <?php if ( !empty($errMsg) ):?>
+            <div class="alert alert-warning">
+                <p> <?= $errMsg ?></p>
+            </div>
+        <?php endif;?>
         <form method="post">
             Title of your article:<br>
             <div class="form-group">
@@ -24,21 +29,9 @@
                 <?php endforeach; ?>
             </select>
             </div>
-
-            User:<br>
-            <div class="form-group">
-            <select name='user_id' class="custom-select" id="inputGroupSelect01">
-                <?php foreach ($authors as $author): ?>
-    <option value= <?=$author['user_id']?> <?=($author['user_id'] == ($article['user_id'] ?? 1 )) ? 'selected' : '' ?>> <?=$author['login']?>
-                    </option>
-                <?php endforeach; ?>
-            </select>
-            </div>
-
             <button type="submit" class="btn btn-primary">Submit</button>
-            <p><?=$errMsg ?? ''?></p>
-        </form>
+            </form>
         <hr>
-        <a href="/">Move to main page</a>
+        <a href="<?=ROOT_URL?>">Move to main page</a>
             <?php endif; ?>
 </div>

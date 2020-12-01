@@ -13,9 +13,13 @@ return
                 'test' => "/^\/?$/",
                 'controller' => "index"
             ],
+            [
+                'test' =>'/^\/?info\/?$/',
+                'controller' => 'info',
+            ],
             // роутеры для работы со статьями
             [
-                'test' => "/^\/?add\/?$/",
+                'test' => "/^\/?article\/add\/?$/",
                 'controller' => "articles/add"
             ],
             [
@@ -24,12 +28,12 @@ return
                 'params' => ['art_id' => 1]
             ],
             [
-                'test' => "/^\/?edit\/($normID)\/?$/",
+                'test' => "/^\/?article\/edit\/($normID)\/?$/",
                 'controller' => "articles/edit",
                 'params' => ['art_id' => 1]
             ],
             [
-                'test' => "/^\/?delete\/($normID)\/?$/",
+                'test' => "/^\/?article\/delete\/($normID)\/?$/",
                 'controller' => "articles/delete",
                 'params' => ['art_id' => 1]
             ],
@@ -38,29 +42,45 @@ return
                 'test' => "/^\/?category\/($normUrl)\/?$/",
                 'controller' => "categories/category",
                 'params' => ['url' => 1]
-
             ],
             [
-                'test' => "/^\/?revision\/?$/",
+                'test' => "/^\/?categories\/revision\/?$/",
                 'controller' => "categories/revision",
-                // 'params' => ['url' => 1]
-
             ],
             [
-                'test' => "/^\/?addcat\/($normUrl)\/?$/",
+                'test' => "/^\/?categories\/add\/($normUrl)\/?$/",
                 'controller' => "categories/add",
                 'params' => ['url' => 1]
             ],
             [
-                'test' => "/^\/?deletecat\/($normUrl)\/?$/",
+                'test' => "/^\/?categories\/delete\/($normUrl)\/?$/",
                 'controller' => "categories/delete",
                 'params' => ['url' => 1]
             ],
             [
-                'test' => "/^\/?editcat\/($normUrl)\/?$/",
+                'test' => "/^\/?categories\/edit\/($normUrl)\/?$/",
                 'controller' => "categories/edit",
                 'params' => ['url' => 1]
             ],
+            // роуты для работы с пользователями
+            [
+                'test' => "/^\/?registr\/?$/",
+                'controller' => "users/registr",
+            ],
+            [
+                'test' => "/^\/?login\/?$/",
+                'controller' => "users/login",
+            ],
+            [
+                'test' => "/^\/?logout\/?$/",
+                'controller' => "users/logout",
+            ],
+            // роуты ошибок
+            // [
+            //     'test' => "/^\/?error($normID)\/?$/",
+            //     'controller' => "errors/($normID)",
+            //     'params' => ['err' => 1]
+            // ],
         ];
     }
 )();
