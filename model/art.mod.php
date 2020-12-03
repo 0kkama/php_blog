@@ -39,7 +39,7 @@ function removeArticle(array $params = []) : bool {
 }
 // проверка существования статьи по ID со статусом модерации '1'
 function checkArticleExist(array $params = []) : array {
-    $sql = "SELECT EXISTS(SELECT `art_id` FROM articles WHERE art_id = '1045' AND moderation = '1') as 'exist',
-            (SELECT user_id FROM articles WHERE art_id = '1045' AND moderation = '1') as'user_id'";
+    $sql = "SELECT EXISTS(SELECT `art_id` FROM articles WHERE art_id = :art_id AND moderation = '1') as 'exist',
+            (SELECT user_id FROM articles WHERE art_id = :art_id AND moderation = '1') as 'user_id'";
     return getQuery($sql, $params, 'one');
 }

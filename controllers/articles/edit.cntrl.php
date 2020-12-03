@@ -2,7 +2,8 @@
 
     makesVisitLog();
 
-    if(empty($user)) {
+//    if(empty($user)) {
+    if (false === checkYourPrivilegie($user, USER_LVL)) {
         $_SESSION['attentio'] = true;
         header('Location: ' . ROOT_URL . 'login');
         exit();
@@ -21,7 +22,7 @@
             if([] === $article) {
                 $switcher = false;
             } // если пользователь не админ или это не его статья, то редакт запрещён
-            if($user['user_id'] !== $article['user_id'] and $user['status'] !== 'admin') {
+            if($user['user_id'] !== $article['user_id'] and !checkYourPrivilegie($user, ADMIN_LVL)) {
                 $switcher = false;
                 // ПОДУМОТЬ!!!
                 ifErr403();

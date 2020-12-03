@@ -1,9 +1,9 @@
 
 <div id="content">
     <?php if($sendStatus): ?>
-        <p>Your article was sent!</p>
-        <a href="<?=ROOT_URL?>">Return to main page</a><br>
-        <a href="<?=ROOT_URL?>article/add">Add another article</a>
+        <p>Ваша статья была отправлена!</p>
+        <a href="<?=ROOT_URL?>">Вернуться на главную</a><br>
+        <a href="<?=ROOT_URL?>article/add">Добавить еще одну статью</a>
     <?php else: ?>
         <?php if ( !empty($errMsg) ):?>
             <div class="alert alert-warning">
@@ -11,16 +11,16 @@
             </div>
         <?php endif;?>
         <form method="post">
-            Title of your article:<br>
+            Заголовок статьи:<br>
             <div class="form-group">
                 <input type="text" name="title" class="form-control" value="<?=$article['title'] ?? '' ?>" size="40" placeholder="Title">
             </div>
 
-            Content of your article:<br>
+            Содержимое статьи:<br>
             <div class="form-group">
                 <textarea name="content" placeholder="Burn motherfucker, burn!" cols="57" class="form-control" rows="30"><?=$article['content'] ?? '' ?></textarea>
             </div>
-            Choose category of your article: <br>
+            Выберете категорию для статьи: <br>
             <div class="form-group">
             <select name='cat_id' class="custom-select" size='1'>
                 <?php foreach ($categories as $category): ?>
@@ -32,6 +32,6 @@
             <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         <hr>
-        <a href="<?=ROOT_URL?>">Move to main page</a>
+        <a href="<?=ROOT_URL?>">Вернуться на главную</a>
             <?php endif; ?>
 </div>

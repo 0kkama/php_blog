@@ -1,15 +1,10 @@
 <?php
-
 // контроллер для добавления, удаления и редактирования категорий
-            // возможно, стоит сделать автоматическое преобразование ИМЕНИ в УРЛ
-
+    // возможно, стоит сделать автоматическое преобразование ИМЕНИ в УРЛ
     makesVisitLog();
-    // var_dump($user);
-    // $user = null;
-    if(empty($user) || $user['status'] !== 'admin') {
+    // если юзер не админ, то доступ запрещён
+    if(false === checkYourPrivilegie($user, ADMIN_LVL)) {
         ifErr403();
-        // header('Location: ' . ROOT_URL);
-        // exit();
     }
     else {
 

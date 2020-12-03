@@ -1,6 +1,12 @@
 <?php
-    // include_once ('utility/config.util.php');
-    // include_once('hub.php');
+
+    $title = 'Логи';
+    $logsList = 'sdfsdfs';
+    echo $logsList;
+
+    $content = template('logs.views.php',
+        ['logsList' => $logsList]
+    );
 
 if (isset($_GET['datelog'])) {
     $log = $_GET['datelog'];

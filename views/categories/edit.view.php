@@ -1,19 +1,19 @@
 <div id="content">
     <form method="post">
-        Edit name of your category:<br>
+        Изменить назване категории:<br>
             <div class="form-group">
                 <input type="text" name="cat_name" class="form-control" value="<?=$category['cat_name'] ?? '' ?>" size="40" placeholder="Название категории">
             </div>
-        Edit URL of your category:<br>
+        Изменить URL категории:<br>
             <div class="form-group">
                 <input type="text" name="url" class="form-control" value="<?=$category['url'] ?? '' ?>" size="40" placeholder="Category URL">
             </div>
 
-        <button type="submit" class="btn btn-primary">Edit</button>
+        <button type="submit" class="btn btn-primary">Изменить</button>
         <p><?=$errMsg ?? ''?></p>
     </form>
     <hr>
-    <a href="<?=ROOT_URL?>categories/revision">Go back</a><br>
-    <a href="<?=ROOT_URL?>">Move to main page</a>
+    <a href="<?=ROOT_URL?>categories/revision">Вернуться назад</a><br>
+    <a href="<?=ROOT_URL?>">Вернуться на главную</a>
 </div>
 

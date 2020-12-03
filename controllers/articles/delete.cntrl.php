@@ -1,7 +1,7 @@
 <?php
     makesVisitLog();
 
-    if (empty($user)) {
+    if (false === checkYourPrivilegie($user, USER_LVL)) {
         // $_SESSION['attentio'] = true;
         ifErr403();
         // header('Location: ' . ROOT_URL);
@@ -11,9 +11,10 @@
 
         $params['art_id'] = (int) val(URL_PARAMS['art_id'] ?? 0);
         $isArticle = checkArticleExist($params);
+        // var_dump($params);
+        // var_dump($isArticle);
 
-        if($isArticle['user_id'] === $user['user_id'] or $user['status'] === 'admin') {
-            // var_dump($isArticle);
+        if($isArticle['user_id'] === $user['user_id'] or checkYourPrivilegie($user, ADMIN_LVL)) {
             if ($isArticle['exist'] === '1') {
                 removeArticle($params);
 

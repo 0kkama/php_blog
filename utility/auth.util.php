@@ -19,14 +19,17 @@ function getUserAuthByToken() : ?array {
     }
     return $user;
 }
-
 // функция проверки прав доступа к различным действиям на сайте
-function checkYourPrivilegie (array $user, string $type) : bool {
-    /*
-    в зависимости от переменной тайп проверяет либо факт того, что пользователь зашёл на сайт,
-    либо наличие административных прав доступа. Помимо этого необходимо продумать проверку
-    на возможность редактирования и удалиния только своих статей
-    (но админ может удалять и редактировать все статьи )
-    */
+// если права доступ меньше требуемого уровня, то вернёт false
+function checkYourPrivilegie (array $user = [], int $level) : bool {
+    if (empty($user)) {
+        return false;
+    }
+    if ($user['level'] < $level) {
+        return false;
+    }
+    else {
+        return true;
+    }
 }
 

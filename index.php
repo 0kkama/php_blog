@@ -4,7 +4,7 @@
     // /var/lib/php/sessions
     session_start();
     // проверка авторизации пользователя
-    $user = getUserAuthByToken();
+    $user = getUserAuthByToken(); // var_dump($user);
     // по работе ЧПУ - см. location в lavr.conf
     $requestURI = $_SERVER['REQUEST_URI'];
     $title = 'Something going wrong';
@@ -25,6 +25,7 @@
         else {
             include_once($path);
         }
+
     endif;
 
     if (isset($_SESSION['articleAdded'])) {

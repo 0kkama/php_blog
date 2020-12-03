@@ -1,14 +1,12 @@
 <?php
-
     makesVisitLog();
 
-    if($user === null || $user === [] || $user['status'] !== 'admin') {
+    if(false === checkYourPrivilegie($user, ADMIN_LVL)) {
         header('Location: ' . ROOT_URL);
         exit();
     }
 
     $errMsg = '';
-
 // добавить проверку при попытке редактировать несуществующую категорию
 
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -28,7 +26,6 @@
 
             // происходящее ниже является непонятным шаманством, но верхние две строчки не работают,
             // при том, что аналогичные строчки корректно работают в контроллере revision.cntrl.php
-
             // а так работает:
             $catName = $changeCategory['cat_name'];
             $catURL = $changeCategory['url'];
@@ -39,7 +36,7 @@
                 $changeCategory['url'] = $catURL;
 
             editCategory($changeCategory);
-            header('Location: ' ROOT_URL . 'categories/revision');
+            header('Location: ' . ROOT_URL . 'categories/revision');
         }
     }
 

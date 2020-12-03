@@ -10,23 +10,23 @@
 <body>
     <div class="root">
         <header id='header'>
-        <?php if(empty($user)): ?>
-            | <a href="<?=ROOT_URL?>">Main</a>
-            | <a href="<?=ROOT_URL?>registr">Registration</a>
-            | <a href="<?=ROOT_URL?>login">LogIn</a>
-        <?php elseif ($user['status'] === 'user'): ?>
-            | <a href="<?=ROOT_URL?>">Main</a>
-            | <a href="<?=ROOT_URL?>article/add">Add article</a>
-            | <a href="<?=ROOT_URL?>logout">LogOut</a>
-            | Вы зашли как <?= $user['login']; ?>
-        <?php elseif ($user['status'] === 'admin'): ?>
-            | <a href="<?=ROOT_URL?>">Main</a>
-            | <a href="<?=ROOT_URL?>article/add">Add article</a>
-            | <a href="<?=ROOT_URL?>logout">LogOut</a>
-            | <a href="<?=ROOT_URL?>logs">Logs</a>
+        <?php if (checkYourPrivilegie($user, ADMIN_LVL)): ?>
+            | <a href="<?=ROOT_URL?>">Главная</a>
+            | <a href="<?=ROOT_URL?>article/add">Добавить статью</a>
+            | <a href="<?=ROOT_URL?>logout">Выйти</a>
+            | <a href="<?=ROOT_URL?>test">Logs</a>
             | <a href="<?=ROOT_URL?>info">Info</a>
-            | <a href="<?=ROOT_URL?>categories/revision">Edit categories</a>
+            | <a href="<?=ROOT_URL?>categories/revision">Категории</a>
             | Вы зашли как <?= $user['login']; ?>
+        <?php elseif (checkYourPrivilegie($user, USER_LVL)): ?>
+            | <a href="<?=ROOT_URL?>">Главная</a>
+            | <a href="<?=ROOT_URL?>article/add">Добавить статью</a>
+            | <a href="<?=ROOT_URL?>logout">Выйти</a>
+            | Вы зашли как <?= $user['login']; ?>
+        <?php else: ?>
+            | <a href="<?=ROOT_URL?>">Главная</a>
+            | <a href="<?=ROOT_URL?>registr">Регистрация</a>
+            | <a href="<?=ROOT_URL?>login">Войти</a>
         <?php endif; ?>
         </header>
 
@@ -34,7 +34,7 @@
         <main>
     <?php if( $articleAdded ): ?>
     <div class="alert alert-success">
-        Your article was sent to moderation!
+        Ваша статья была отправлена на модерацию!
     </div>
     <hr>
     <?php endif; ?>
@@ -65,7 +65,7 @@
                     <?php endforeach; ?>
                 </ul>
             </div>
-            <a href="<?=ROOT_URL?>">Move to main page</a> &copy ex nihilo  &#8211 2020
+            <a href="<?=ROOT_URL?>">Вернуться на главную</a> &copy ex nihilo  &#8211 2020
         </footer>
     <div>
 </body>

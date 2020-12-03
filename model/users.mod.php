@@ -37,7 +37,7 @@ function getSessionByToken(string $token) : array {
 // получение данных пользователя по ИД
 function getUserByID(string $userID) : array {
     $params['user_id'] = $userID;
-    $sql = "SELECT user_id, login, email, name, surname, status FROM users WHERE user_id = :user_id";
+    $sql = "SELECT user_id, login, email, name, surname, level, status FROM users WHERE user_id = :user_id";
     return getQuery($sql, $params, 'one');
 }
 // добавление нового пользователя в БД

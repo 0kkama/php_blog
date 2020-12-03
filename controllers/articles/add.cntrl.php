@@ -2,7 +2,7 @@
     // контроллер добавления статьи
     makesVisitLog();
 
-    if(empty($user)) {
+    if(false === checkYourPrivilegie($user, USER_LVL)) {
         $_SESSION['attentio'] = true;
         header('Location: ' . ROOT_URL . 'login');
         exit();

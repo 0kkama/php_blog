@@ -17,7 +17,7 @@
             </div>
             <?php endif;?>
 
-            Add new category:<br>
+            Добавить новую категорию:<br>
             <div class="form-group">
                 <input type="text" name="cat_name" class="form-control" value="<?=$newCategory['cat_name'] ?? '' ?>" size="40" placeholder="Название категории">
             </div>
@@ -25,7 +25,7 @@
                 <input type="text" name="url" class="form-control" value="<?=$newCategory['url'] ?? '' ?>" size="40" placeholder="Category URL">
             </div>
 
-            <button type="submit" class="btn btn-primary">Add</button>
+            <button type="submit" class="btn btn-primary">Добавить</button>
         </form>
 </div>
 

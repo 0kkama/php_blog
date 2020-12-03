@@ -1,7 +1,7 @@
 <?php
     makesVisitLog();
 
-    if(empty($user) || $user['status'] !== 'admin') {
+    if(false === checkYourPrivilegie($user, ADMIN_LVL)) {
         header('Location: ' . ROOT_URL);
         exit();
     }

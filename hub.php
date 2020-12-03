@@ -5,13 +5,17 @@
     date_default_timezone_set('Europe/Moscow');
     error_reporting(E_ALL);
 
-// base CONSTANTS
-    const ROOT_URL = '/';
+// CONSTANTS for DataBase
     const DB_HOST = 'localhost';
     const DB_NAME = 'lavr_hw';
     const DB_USER = 'admin';
     const DB_PASS = '14133788';
     const DB_CHAR = 'utf8';
+
+// base CONSTANTS
+    const ROOT_URL = '/';
+    const USER_LVL = 1;
+    const ADMIN_LVL = 10;
 
 // include DEBUGGER
     include_once ('utility/debug.util.php');
