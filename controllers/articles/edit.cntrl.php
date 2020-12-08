@@ -2,7 +2,6 @@
 
     makesVisitLog();
 
-//    if(empty($user)) {
     if (false === checkYourPrivilegie($user, USER_LVL)) {
         $_SESSION['attentio'] = true;
         header('Location: ' . ROOT_URL . 'login');
@@ -22,7 +21,7 @@
             if([] === $article) {
                 $switcher = false;
             } // если пользователь не админ или это не его статья, то редакт запрещён
-            if($user['user_id'] !== $article['user_id'] and !checkYourPrivilegie($user, ADMIN_LVL)) {
+            else if($user['user_id'] !== $article['user_id'] and !checkYourPrivilegie($user, ADMIN_LVL)) {
                 $switcher = false;
                 // ПОДУМОТЬ!!!
                 ifErr403();
@@ -31,7 +30,7 @@
         elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $article = extractFields(['title', 'content', 'cat_id'], $_POST);
                 $article['art_id'] = (int) val( $_POST['id']);
-                $errMsg = checkParams($article);
+                $errMsg = checkArticleParams($article, $categories);
                 // var_dump_pre($_POST); var_dump_pre($article ?? []); echo '------------ 13';
             if ('' === $errMsg) {
                 $editStatus = editArticle($article);

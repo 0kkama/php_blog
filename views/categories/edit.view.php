@@ -1,6 +1,6 @@
 <div id="content">
     <form method="post">
-        Изменить назване категории:<br>
+        Изменить название категории:<br>
             <div class="form-group">
                 <input type="text" name="cat_name" class="form-control" value="<?=$category['cat_name'] ?? '' ?>" size="40" placeholder="Название категории">
             </div>

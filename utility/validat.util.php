@@ -19,31 +19,23 @@ function checkEmptyForms (array $fields) : bool {
 }
 
 // проверка заполненности всех полей при создании/редактировании статьи
-function checkParams(array $params) : string {
-    // допилить эту хрень или оставить как есть?
-    $errMsg = '';
-    $errors = [];
-    foreach ($params as $key => $value) {
-        if ($value === '') {
+function checkArticleParams(array $params = [], array $categories) : string {
+    $errMsg = 'Неверно указана категория!';
 
-            switch($key):
-                case 'art_id': $errors[] = 'номер '; break;
-                case 'user_id': $errors[] = 'автор '; break;
-                case 'content': $errors[] = 'контент '; break;
-                case 'title': $errors[] = 'заголовок '; break;
-                case 'cat_id': $errors[] = 'категория '; break;
-            endswitch;
+    if ( checkEmptyForms($params) ) {
+        $errMsg = 'Заполните все поля формы!';
+        return $errMsg;
+    }
+    if (empty($categories)) {
+        $errMsg = 'Проблемы с категорией';
+        return $errMsg;
+    }
+    foreach ($categories as $category) {
+        if ($category['cat_id'] === $params['cat_id']) {
+            $errMsg = '';
+            break;
         }
     }
-    // if ($errors !== [])
-    $length = count($errors);
-    if($length !== 0):
-        foreach($errors as $key => $value) {
-            $errMsg .= $value;
-        }
-        $errMsg = 'Заполните все поля формы! Пропущено: ' . $errMsg;
-    endif;
-
     return $errMsg;
 }
 
