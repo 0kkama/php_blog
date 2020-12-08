@@ -36,11 +36,6 @@
         $articleAdded = false;
     }
 
-           // var_dump($_SESSION);
-          // echo '<br>';
-         // var_dump($_COOKIE);
-        // var_dump_pre($_SERVER);
-
     $categories = getCategoriesList();
     // подключение лэйаута
     echo template('layout.view.php',

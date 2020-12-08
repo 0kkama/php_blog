@@ -18,9 +18,9 @@
 
             Содержимое статьи:<br>
             <div class="form-group">
-                <textarea name="content" placeholder="Burn motherfucker, burn!" cols="57" class="form-control" rows="30"><?=$article['content'] ?? '' ?></textarea>
+                <textarea name="content" placeholder="Content" cols="57" class="form-control" rows="30"><?=$article['content'] ?? '' ?></textarea>
             </div>
-            Выберете категорию для статьи: <br>
+            Выберите категорию для статьи: <br>
             <div class="form-group">
             <select name='cat_id' class="custom-select" size='1'>
                 <?php foreach ($categories as $category): ?>
@@ -29,7 +29,7 @@
                 <?php endforeach; ?>
             </select>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Отправить</button>
             </form>
         <hr>
         <a href="<?=ROOT_URL?>">Вернуться на главную</a>
