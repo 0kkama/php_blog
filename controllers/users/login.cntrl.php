@@ -1,6 +1,7 @@
 <?php
     makesVisitLog();
 
+
     if(!empty($user)) {
         header('Location: ' . ROOT_URL);
         exit();
@@ -19,8 +20,8 @@
         if ('' !== $authData['login']  && '' !== $authData['password'] ) {
             // получаем данные из БД по введённому логину
             $userData = getUserDataByLogin($authData['login']);
-            // если такой юзер есть в БД и введённый пароль соответствует хэшу из БД
-            if([] !== $userData  && password_verify($authData['password'], $userData['pass'])) {
+            // если такой юзер есть в БД и введённый пароль соответствует хэшу из БД и юзер не забанен
+            if(([] !== $userData  && password_verify($authData['password'], $userData['pass'])) and $userData['status'] !== 'ban') {
                 // то генерируем токен на основе которого создаём новую сессию в БД, а так же кладём этот токен в сессию текущего сеанса
                 $token = getToken();
                 addNewSession($userData['user_id'], $token);

@@ -9,7 +9,7 @@
             if([] !== $article) {
                 $article['manipulation'] = false; // переменная для меню удаления и редактирования статьи
                 if (!empty($user)) {
-                    if ($article['user_id'] === $user['user_id'] or $user['status'] === 'admin') {
+                    if ( $article['user_id'] === $user['user_id'] or checkYourPrivilegie($user, MODER_LVL) ) {
                         $article['manipulation'] = true;
                     }
                 }
@@ -17,6 +17,6 @@
                 $content = template('articles/article.view.php', $article);
             }
             else { // если статья не найдена
-             ifErr404();
+                ifErr404();
             }
 

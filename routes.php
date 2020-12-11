@@ -88,6 +88,27 @@ return
                 'test' => "/^\/?logout\/?$/",
                 'controller' => 'users/logout',
             ],
+                // администрирование пользователей
+            [
+                'test' => "/^\/?users\/?$/",
+                'controller' => 'users/admin',
+            ],
+            [
+                'test' => "/^\/?users\/regain\/($normID)\/?$/",
+                'controller' => 'users/regain',
+                'params' => ['user_id' => 1]
+            ],
+            [
+                'test' => "/^\/?users\/moder\/($normID)\/?$/",
+                'controller' => 'users/moder',
+                'params' => ['user_id' => 1]
+            ],
+            [
+                'test' => "/^\/?users\/expel\/($normID)\/?$/",
+                'controller' => 'users/expel',
+                'params' => ['user_id' => 1]
+            ],
+
             // роуты ошибок
             // [
             //     'test' => "/^\/?error($normID)\/?$/",

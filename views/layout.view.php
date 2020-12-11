@@ -16,6 +16,7 @@
             | <a href="<?=ROOT_URL?>logout">Выйти</a>
             | <a href="<?=ROOT_URL?>test">Logs</a>
             | <a href="<?=ROOT_URL?>info">Info</a>
+            | <a href="<?=ROOT_URL?>users">Пользователи</a>
             | <a href="<?=ROOT_URL?>categories/revision">Категории</a>
             | Вы зашли как <?= $user['login']; ?>
         <?php elseif (checkYourPrivilegie($user, USER_LVL)): ?>

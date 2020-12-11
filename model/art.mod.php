@@ -10,6 +10,21 @@ function getArticlesList() : array {
             WHERE `moderation` = '1' AND articles.cat_id = category.cat_id ORDER BY `date` DESC LIMIT 20";
     return getQuery($sql);
 }
+// получение списка всех статей
+function getAllArticles() : array {
+    $sql = "SELECT * FROM articles, category WHERE articles.cat_id = category.cat_id ORDER BY `date` DESC";
+    return getQuery($sql);
+}
+// получение всех непромодерированных статей
+function getNotModerArticles() : array {
+    $sql = "SELECT * FROM articles, category WHERE `moderation` = '0' articles.cat_id = category.cat_id ORDER BY `date` DESC";
+    return getQuery($sql);
+}
+// получение всех заархивированных статей
+function getArchivedArticles() : array {
+    $sql = "SELECT * FROM articles, category WHERE `moderation` = '2' articles.cat_id = category.cat_id ORDER BY `date` DESC";
+    return getQuery($sql);
+}
 // получение конкретной статьи по ID
 function getOneArticle (array $params = []) : array {
     $sql = "SELECT articles.art_id, articles.user_id, articles.cat_id,
@@ -30,10 +45,16 @@ function editArticle(array $params = []) : bool {
     makeQueryToDB($sql, $params);
     return true;
 }
-// удаление (архивация) статьи по ID
-function removeArticle(array $params = []) : bool {
+// архивация статьи по ID
+function archivArticle(array $params = []) : bool {
     // $sql = "DELETE FROM articles WHERE art_id = :art_id";
     $sql = "UPDATE articles SET `moderation`= '2' WHERE art_id = :art_id";
+    makeQueryToDB($sql, $params);
+    return true;
+}
+// реальное удаление статьи из БД
+function removeArtcle (array $params = []) : bool {
+    $sql = "DELETE FROM articles WHERE art_id = :art_id";
     makeQueryToDB($sql, $params);
     return true;
 }

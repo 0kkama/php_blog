@@ -1,14 +1,38 @@
 <?php
 // фуи для работы с пользователями(авторами)
-// cписок авторов
-function getAuthorsList() : array {
-    $sql = "SELECT * FROM users";
+// получение данных о всех пользователях
+function getUsersList() : array {
+    $sql = "SELECT user_id, name, surname, login, `date`, email, level, status FROM users ORDER BY `date`";
         return getQuery($sql);
     }
+// понижает права доступа пользователя до 0 и статуса забаненного, удаляет все его данные сессии из БД
+function expelUser (string $userID) : bool {
+    $params = ['user_id' => $userID, 'level' => LOCK_LVL, 'status' => 'ban'];
+    $params2 = ['user_id' => $userID];
+    $sql = "UPDATE users SET level = :level, status = :status WHERE user_id = :user_id AND user_id > 2";
+    $sql2 = "DELETE FROM sessions WHERE user_id = :user_id AND user_id > 2";
+    makeQueryToDB($sql, $params);
+    makeQueryToDB($sql2, $params2);
+    return true;
+}
+// даёт пользователю права и стутус юзера
+function regainUser (string $userID) : bool {
+    $params = ['user_id' => $userID, 'level' => USER_LVL, 'status' => 'user'];
+    $sql = "UPDATE users SET level = :level, status = :status WHERE user_id = :user_id AND user_id > 2";
+    makeQueryToDB($sql, $params);
+    return true;
+}
+// даёт пользователю права и статус модератора
+function makeModer (string $userID) : bool {
+    $params = ['user_id' => $userID, 'level' => MODER_LVL, 'status' => 'moder'];
+    $sql = "UPDATE users SET level = :level, status = :status WHERE user_id = :user_id AND user_id > 2";
+    makeQueryToDB($sql, $params);
+    return true;
+}
 // получение логина автора по его ID
-function getUserLogin($user_id) : string {
+function getUserLogin(string $userID) : string {
+    $params['user_id'] = $userID;
     $sql = "SELECT login FROM users WHERE user_id = :user_id";
-    $params['user_id'] = $user_id;
     return getQuery($sql, $params, 'one')['login'];
 }
 // генерирует токен длинной 128 символов
@@ -18,12 +42,12 @@ function getToken() {
 // получение данных пользователя по логину
 function getUserDataByLogin(string $login) : array {
     $params['login'] = $login;
-    $sql = "SELECT user_id, pass FROM users WHERE login = :login";
+    $sql = "SELECT user_id, pass, status FROM users WHERE login = :login";
     return getQuery($sql, $params, 'one');
 }
 // добавление новой сесси в БД
-function addNewSession(string $user_id, string $token) : bool {
-    $params = ['user_id' => $user_id, 'token' => $token];
+function addNewSession (string $userID, string $token) : bool {
+    $params = ['user_id' => $userID, 'token' => $token];
     $sql = "INSERT INTO sessions (user_id, token) VALUES (:user_id, :token)";
     makeQueryToDB($sql, $params);
     return true;

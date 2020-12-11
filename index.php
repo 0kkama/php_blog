@@ -1,4 +1,5 @@
 <?php
+    //точка входа
     include_once('hub.php');
 
     // /var/lib/php/sessions
@@ -38,6 +39,7 @@
 
     $categories = getCategoriesList();
     // подключение лэйаута
+    var_dump($user);
     echo template('layout.view.php',
         [
             'title' => $title,

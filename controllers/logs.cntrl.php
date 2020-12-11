@@ -1,7 +1,7 @@
 <?php
 
     $title = 'Логи';
-    $logsList = 'sdfsdfs';
+    $logsList = 'JIB<RF! ERROR!';
     echo $logsList;
 
     $content = template('logs.views.php',

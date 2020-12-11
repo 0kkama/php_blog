@@ -20,8 +20,8 @@
             // при попытке отредактировать несуществующую статью
             if([] === $article) {
                 $switcher = false;
-            } // если пользователь не админ или это не его статья, то редакт запрещён
-            else if($user['user_id'] !== $article['user_id'] and !checkYourPrivilegie($user, ADMIN_LVL)) {
+            } // если пользователь не админ/модер или это не его статья, то редакт запрещён
+            else if($user['user_id'] !== $article['user_id'] and !checkYourPrivilegie($user, MODER_LVL)) {
                 $switcher = false;
                 // ПОДУМОТЬ!!!
                 ifErr403();

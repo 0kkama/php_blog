@@ -14,9 +14,9 @@
         // var_dump($params);
         // var_dump($isArticle);
 
-        if($isArticle['user_id'] === $user['user_id'] or checkYourPrivilegie($user, ADMIN_LVL)) {
+        if($isArticle['user_id'] === $user['user_id'] or checkYourPrivilegie($user, MODER_LVL)) {
             if ($isArticle['exist'] === '1') {
-                removeArticle($params);
+                archivArticle($params);
 
                 $title = "Article deleted!";
                 $content = template('articles/delete.view.php');

@@ -1,4 +1,5 @@
 <?php
+    // контроллер удаления категории
     makesVisitLog();
 
     if(false === checkYourPrivilegie($user, ADMIN_LVL)) {
