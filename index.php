@@ -8,11 +8,11 @@
     $user = getUserAuthByToken(); // var_dump($user);
     // по работе ЧПУ - см. location в lavr.conf
     $requestURI = $_SERVER['REQUEST_URI'];
-    $title = 'Something going wrong';
-    $content = 'Something going wrong';
+    $title = 'Something going wrong!';
+    $content = 'Something going wrong!';
 
     if (checkRequestURI($requestURI)):
-        ifErr404();
+        header('Location: ' . ROOT_URL . 'error/404'); exit();
     else:
         $routes = include('routes.php');
         $variable = parseURL($requestURI, $routes);
@@ -21,7 +21,7 @@
         $path = "controllers/$control.cntrl.php";
 
         if (!file_exists($path)) {
-            ifErr404();
+            header('Location: ' . ROOT_URL . 'error/404'); exit();
         }
         else {
             include_once($path);
@@ -39,7 +39,7 @@
 
     $categories = getCategoriesList();
     // подключение лэйаута
-    var_dump($user);
+    // var_dump($user);
     echo template('layout.view.php',
         [
             'title' => $title,

@@ -3,7 +3,7 @@
         <p>Ваша статья была успешно отредактирована!</p>
         <a href="<?=ROOT_URL?>">Вернуться на главную</a><br>
     <?php else: ?>
-        <?php if ( !empty($errMsg) ):?>
+        <?php if ( !empty($errMsg) ): ?>
             <div class="alert alert-warning">
                 <p> <?= $errMsg ?></p>
             </div>
@@ -30,7 +30,7 @@
             <button type="submit" class="btn btn-primary">Send</button>
         </form>
         <hr>
-        <a href="<?=ROOT_URL . 'article/' . $article['art_id']?>">Вернуться назад</a><br>
+        <a href="<?=ROOT_URL . 'article/watch/' . $article['art_id']?>">Вернуться назад</a><br>
         <a href="<?=ROOT_URL?>">Вернуться на главную</a>
     <?php endif; ?>
 </div>

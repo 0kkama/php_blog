@@ -1,11 +1,18 @@
 <?php
 // фуи для работы с категориями
+
 // список одобренных модератором категорий, в порядке убывания по количеству публикаций в данной категории
+    // function getCategoriesList() : array {
+    //     $sql = "SELECT * FROM `category` WHERE `stat` = '1' ORDER BY (SELECT COUNT(articles.cat_id) as 'Count'
+    //         FROM articles WHERE  articles.cat_id = category.cat_id AND `moderation` = '1'
+    //         GROUP BY cat_name) DESC";
+    //     return getQuery($sql);
+    // }
+
+// список одобренных модератором категорий отсортированный по ID
 function getCategoriesList() : array {
-    $sql = "SELECT * FROM `category` WHERE `stat` = '1' ORDER BY (SELECT COUNT(articles.cat_id) as 'Count'
-        FROM articles WHERE  articles.cat_id = category.cat_id AND `moderation` = '1'
-        GROUP BY cat_name) DESC";
-            return getQuery($sql);
+    $sql = "SELECT * FROM `category` WHERE `stat` = '1' ORDER BY `cat_id`";
+    return getQuery($sql);
 }
 // получение конкретной категории по URL
 function getOneCategory(array $params) : array {
@@ -23,8 +30,7 @@ function getArticlesInCategory(array $params) : array {
 // получение числа категорий
 function getCategoriesQuantity() : int {
     $sql = "SELECT COUNT(cat_id) AS cat FROM category";
-    $result = getQuery($sql, [], 'one')['cat'];
-        return $result;
+    return getQuery($sql, [], 'one')['cat'];
 }
 // возвращает число существующих категорий, а так же имя текущей
 function getCategoriesQuantName(array $params) : array {
@@ -62,7 +68,7 @@ function isCategoryEmpty (array $params = []) : string {
 // проверка существования категории вне зависимости от её статуса. Как по url, так и по cat_name
 function checkCategory(array $params) : array {
     $sql = "SELECT * FROM category WHERE url = :url or cat_name = :cat_name";
-        return getQuery($sql, $params, 'all');
+        return getQuery($sql, $params);
 }
 // проверка имени и урл добавляемой/редактируемой категории на повтор из уже существующих в БД
 function checkCatRepeats(array $params) : array {

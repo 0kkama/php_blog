@@ -10,27 +10,27 @@
 <body>
     <div class="root">
         <header id='header'>
-        <?php if (checkYourPrivilegie($user, ADMIN_LVL)): ?>
-            | <a href="<?=ROOT_URL?>">Главная</a>
-            | <a href="<?=ROOT_URL?>article/add">Добавить статью</a>
-            | <a href="<?=ROOT_URL?>logout">Выйти</a>
-            | <a href="<?=ROOT_URL?>test">Logs</a>
-            | <a href="<?=ROOT_URL?>info">Info</a>
-            | <a href="<?=ROOT_URL?>users">Пользователи</a>
-            | <a href="<?=ROOT_URL?>categories/revision">Категории</a>
-            | Вы зашли как <?= $user['login']; ?>
-        <?php elseif (checkYourPrivilegie($user, USER_LVL)): ?>
-            | <a href="<?=ROOT_URL?>">Главная</a>
-            | <a href="<?=ROOT_URL?>article/add">Добавить статью</a>
-            | <a href="<?=ROOT_URL?>logout">Выйти</a>
-            | Вы зашли как <?= $user['login']; ?>
-        <?php else: ?>
+        <?php if (empty($user)): ?>
             | <a href="<?=ROOT_URL?>">Главная</a>
             | <a href="<?=ROOT_URL?>registr">Регистрация</a>
             | <a href="<?=ROOT_URL?>login">Войти</a>
         <?php endif; ?>
+        <?php if (checkYourPrivileges($user, USER_LVL)): ?>
+            | Вы зашли как <?= $user['login']; ?>
+            | <a href="<?=ROOT_URL?>">Главная</a>
+            | <a href="<?=ROOT_URL?>article/add">Добавить статью</a>
+            | <a href="<?=ROOT_URL?>logout">Выйти</a>
+        <?php endif; ?>
+        <?php if (checkYourPrivileges($user, MODER_LVL)): ?>
+            | <a href="<?=ROOT_URL?>article/moderation">Модерация</a>
+        <?php endif; ?>
+        <?php if (checkYourPrivileges($user, ADMIN_LVL)): ?>
+            | <a href="<?=ROOT_URL?>users">Пользователи</a>
+            | <a href="<?=ROOT_URL?>categories/revision">Категории</a>
+            | <a href="<?=ROOT_URL?>test">Logs</a>
+            | <a href="<?=ROOT_URL?>info">Info</a>
+        <?php endif; ?>
         </header>
-
 
         <main>
     <?php if( $articleAdded ): ?>

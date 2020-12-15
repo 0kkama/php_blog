@@ -1,9 +1,9 @@
 <?php
     makesVisitLog();
-    header(PROTOCOL . ' 404 Not Found');
-    $title = '404 Not Found';
-    $head = 'ERROR 404';
-    $message = 'Page not found!';
+    header(PROTOCOL . ' 418 I\'m a teapot');
+    $title = '418 I\'m a teapot';
+    $head = 'ERROR 418';
+    $message = 'I\'m a teapot';
     $content = template('errors/error.view.php',
         [
             'head' => $head,

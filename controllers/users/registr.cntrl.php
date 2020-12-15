@@ -13,7 +13,7 @@
         $registrData = extractFields(['name', 'surname', 'login', 'password1', 'password2', 'email'] , $_POST);
         $remember = isset($_POST['remember']);
         // валидация полей
-        $registrErr = validUserRegistr($registrData);
+        $registrErr = validUserRegistry($registrData);
 
         // захэшировать пароль и отправить данные в БД
         if ('' === $registrErr) {
@@ -22,7 +22,6 @@
             $userData['name'] = makeFrstLttrUp(val($userData['name'], 1));
             $userData['surname'] = makeFrstLttrUp(val($userData['surname'], 1));
             $userData['login'] = val($userData['surname'], 1);
-
 
             unset($userData['password1']);
             unset($userData['password2']);

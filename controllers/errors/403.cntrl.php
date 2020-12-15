@@ -1,5 +1,12 @@
 <?php
-
-    header("{$_SERVER['SERVER_PROTOCOL']} 403 Forbidden");
-    $GLOBALS['title'] = 'Error 403';
-    $GLOBALS['content'] = template('errors/403.view.php');
+    makesVisitLog();
+    header(PROTOCOL . ' 418 Forbidden');
+    $title = '418 Forbidden';
+    $head = 'ERROR 403';
+    $message = 'YOU SHALL NOT PASS!';
+    $content = template('errors/error.view.php',
+        [
+            'head' => $head,
+            'message' => $message,
+        ]
+    );

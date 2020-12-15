@@ -1,33 +1,51 @@
 <?php
+    // контроллер "удаления" (по факту архивация) статей, делающий статью недоступной для всех, кто ниже уровня модератора
     makesVisitLog();
 
-    if (false === checkYourPrivilegie($user, USER_LVL)) {
-        // $_SESSION['attentio'] = true;
-        ifErr403();
-        // header('Location: ' . ROOT_URL);
-        // exit();
+    if (false === checkYourPrivileges($user, USER_LVL)) {
+        header('Location: ' . ROOT_URL . 'error/403'); exit();
     }
     else {
-
         $params['art_id'] = (int) val(URL_PARAMS['art_id'] ?? 0);
         $isArticle = checkArticleExist($params);
-        // var_dump($params);
-        // var_dump($isArticle);
 
-        if($isArticle['user_id'] === $user['user_id'] or checkYourPrivilegie($user, MODER_LVL)) {
+        if($isArticle['user_id'] === $user['user_id'] or checkYourPrivileges($user, MODER_LVL)) {
             if ($isArticle['exist'] === '1') {
-                archivArticle($params);
-
+                archiveArticle($params);
                 $title = "Article deleted!";
                 $content = template('articles/delete.view.php');
-                // header('Location: /');
-                // exit();
             }
             else {
-                ifErr404();
+                header('Location: ' . ROOT_URL . 'error/404'); exit();
             }
         }
         else {
-            ifErr403();
+            header('Location: ' . ROOT_URL . 'error/403'); exit();
         }
     }
+
+
+    // makesVisitLog();
+
+    // $isModer = checkYourPrivilegie($user, MODER_LVL);
+    // $isUser = checkYourPrivilegie($user, USER_LVL);
+
+    // if($isUser) {
+
+    // } else {
+
+    // }
+
+    // if (false === checkYourPrivilegie($user, MODER_LVL) ) {
+    //     header('Location: ' . ROOT_URL . 'error/403'); exit();
+    // }
+    // else {
+    //     $article['art_id'] = (int) val( URL_PARAMS['art_id'] ?? 0 );
+    //     if (publishArticle($article)) {
+    //         header('Location: ' . ROOT_URL . 'article/moderation');
+    //     }
+    //     else {
+    //         header('Location: ' . ROOT_URL . 'error/423');
+
+    //     }
+    // }

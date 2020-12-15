@@ -1,6 +1,6 @@
 <?php
+    // контроллер входа пользователя на сайт
     makesVisitLog();
-
 
     if(!empty($user)) {
         header('Location: ' . ROOT_URL);

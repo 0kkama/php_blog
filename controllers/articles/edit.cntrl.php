@@ -1,8 +1,8 @@
 <?php
-
+    // контроллер редактирования статьи
     makesVisitLog();
 
-    if (false === checkYourPrivilegie($user, USER_LVL)) {
+    if (false === checkYourPrivileges($user, USER_LVL)) {
         $_SESSION['attentio'] = true;
         header('Location: ' . ROOT_URL . 'login');
         exit();
@@ -13,18 +13,29 @@
         $switcher = true; // переключатель, определяющий вызов 404 ошибки или отрисовку шаблона страницы
         $errMsg = '';
         $categories = getCategoriesList();
+        $isModer = checkYourPrivileges($user, MODER_LVL);
 
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $article['art_id'] = (int) val( URL_PARAMS['art_id'] ?? 0 );
-            $article = getOneArticle($article);
+            $article = getAnyArticle($article);
+            if([] === $article) {
+                header('Location: ' . ROOT_URL . 'error/404'); exit();
+            }
+
+            $isAuthor = ($user['user_id'] === $article['user_id']);
             // при попытке отредактировать несуществующую статью
             if([] === $article) {
                 $switcher = false;
             } // если пользователь не админ/модер или это не его статья, то редакт запрещён
-            else if($user['user_id'] !== $article['user_id'] and !checkYourPrivilegie($user, MODER_LVL)) {
+            else if(!$isAuthor and !$isModer) {
                 $switcher = false;
-                // ПОДУМОТЬ!!!
-                ifErr403();
+                header('Location: ' . ROOT_URL . 'error/418');
+                exit();
+            } // если статья не на модерации и пользователь не модер, то редакт запрещён
+            else if ($article['moderation'] !== '0' and !$isModer) {
+                $switcher = false;
+                header('Location: ' . ROOT_URL . 'error/423');
+                exit();
             }
         }
         elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -34,7 +45,7 @@
                 // var_dump_pre($_POST); var_dump_pre($article ?? []); echo '------------ 13';
             if ('' === $errMsg) {
                 $editStatus = editArticle($article);
-                header('Location: ' . ROOT_URL . 'article/' . $article['art_id']);
+                header('Location: ' . ROOT_URL . 'article/watch/' . $article['art_id']);
             }
         }
         else {
@@ -51,6 +62,6 @@
                 ]);
         }
         else {
-            ifErr404();
+            header('Location: ' . ROOT_URL . 'error/404'); exit();
         }
     }

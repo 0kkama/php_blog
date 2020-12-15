@@ -1,7 +1,7 @@
 <?php
     makesVisitLog();
 
-    if(false === checkYourPrivilegie($user, ADMIN_LVL)) {
+    if(false === checkYourPrivileges($user, ADMIN_LVL)) {
         header('Location: ' . ROOT_URL);
         exit();
     }
@@ -37,13 +37,13 @@
 
             editCategory($changeCategory);
             header('Location: ' . ROOT_URL . 'categories/revision');
+            exit();
         }
     }
 
     $title = 'Изменить: ' . $changeCategory['cat_name'];
-    $content = template('categories/edit.view.php' , [
-            'title' => $title,
-            'contetn' => $content,
+    $content = template('categories/edit.view.php' ,
+        [
             'category' => $changeCategory,
             'errMsg' => $errMsg,
         ]);

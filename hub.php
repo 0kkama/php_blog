@@ -7,6 +7,8 @@
 
 // base CONSTANTS
     const ROOT_URL = '/';
+    // const PROTOCOL =
+    define('PROTOCOL', $_SERVER['SERVER_PROTOCOL']);
 
 // CONST for DataBase
     const DB_HOST = 'localhost';

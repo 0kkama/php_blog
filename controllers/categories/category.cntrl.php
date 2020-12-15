@@ -6,7 +6,7 @@
     // var_dump($isExist);
     // проверка существования указанной категории
     if ([] === $isExist) {
-        ifErr404();
+        header('Location: ' . ROOT_URL . 'error/404'); exit();
     }
     else {
         $articles = getArticlesInCategory($category);

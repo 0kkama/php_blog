@@ -1,8 +1,9 @@
 <?php
+    // контроллер назначающий пользователю базовые права доступа
     makesVisitLog();
 
-    if(false === checkYourPrivilegie($user, ADMIN_LVL)) {
-        // ifErr403();
+    if(false === checkYourPrivileges($user, ADMIN_LVL)) {
+        // header('Location: ' . ROOT_URL . 'error/403'); exit();
         $_SESSION['attentio'] = true;
         header('Location: ' . ROOT_URL . 'login');
         exit();

@@ -1,19 +1,14 @@
 <?php
 // фуи для работы с пользователями(авторами)
+
+// генерирует авторизационный токен длинной 128 символов
+function getToken() {
+    return substr(bin2hex(random_bytes(128)), 0, 128);
+}
 // получение данных о всех пользователях
 function getUsersList() : array {
     $sql = "SELECT user_id, name, surname, login, `date`, email, level, status FROM users ORDER BY `date`";
-        return getQuery($sql);
-    }
-// понижает права доступа пользователя до 0 и статуса забаненного, удаляет все его данные сессии из БД
-function expelUser (string $userID) : bool {
-    $params = ['user_id' => $userID, 'level' => LOCK_LVL, 'status' => 'ban'];
-    $params2 = ['user_id' => $userID];
-    $sql = "UPDATE users SET level = :level, status = :status WHERE user_id = :user_id AND user_id > 2";
-    $sql2 = "DELETE FROM sessions WHERE user_id = :user_id AND user_id > 2";
-    makeQueryToDB($sql, $params);
-    makeQueryToDB($sql2, $params2);
-    return true;
+    return getQuery($sql);
 }
 // даёт пользователю права и стутус юзера
 function regainUser (string $userID) : bool {
@@ -28,16 +23,6 @@ function makeModer (string $userID) : bool {
     $sql = "UPDATE users SET level = :level, status = :status WHERE user_id = :user_id AND user_id > 2";
     makeQueryToDB($sql, $params);
     return true;
-}
-// получение логина автора по его ID
-function getUserLogin(string $userID) : string {
-    $params['user_id'] = $userID;
-    $sql = "SELECT login FROM users WHERE user_id = :user_id";
-    return getQuery($sql, $params, 'one')['login'];
-}
-// генерирует токен длинной 128 символов
-function getToken() {
-    return substr(bin2hex(random_bytes(128)), 0, 128);
 }
 // получение данных пользователя по логину
 function getUserDataByLogin(string $login) : array {
@@ -70,6 +55,9 @@ function addNewUser (array $userData) : bool {
     makeQueryToDB($sql, $userData);
     return true;
 }
+
+
+
 // проверка уникальности логина и мэйла
 function checkLoginAndMail(string $login, string $email) : array {
     $params = ['login' => $login, 'email' => $email];
@@ -77,8 +65,10 @@ function checkLoginAndMail(string $login, string $email) : array {
     (SELECT EXISTS(SELECT user_id FROM users WHERE email = :email)) as 'email'";
     return getQuery($sql, $params, 'one');
 }
+
+
 // проверка данных для регистрации пользователя
-function validUserRegistr(array $userData) : string {
+function validUserRegistry(array $userData) : string {
     $errorArray = [];
     $errorMessage = '';
     $canWeMakeQuery = true;
@@ -88,44 +78,51 @@ function validUserRegistr(array $userData) : string {
         // $canWeMakeQuery = false;
         return $errorMessage;
     }
-        // проверка совпадения паролей
-            if ($userData['password1'] !== $userData['password2']) {
-                $errorArray[] = 'Ошибка: пароли не совпадают!';
-                $canWeMakeQuery = false;
-            }
-            // проверка валидности имени и фамилии
-            if (true !== checkRUword($userData['name']) or true !== checkRUword($userData['surname'])) {
-                $errorArray[] = 'Ошибка: имя и фамилия должны содержать только кириллические символы!';
-                $canWeMakeQuery = false;
-            }
-            // проверка логина по списку и паттерну
-            if (true !== checkForbiddenWords($userData['login']) or true !== checkLogin($userData['login'])) {
-                $errorArray[] = 'Ошибка: недопустимый логин! Используйте только латинские символы и цифры';
-                $canWeMakeQuery = false;
-            }
-            // проверка мэйла по паттерну
-            if (true !== checkEmail($userData['email'])) {
-                $errorArray[] = 'Ошибка: недопустимый email!';
-                $canWeMakeQuery = false;
-            }
-            // если предыдущие проверки пройдены, то делаем запрос к БД на уникальность логина и мэйла
-            if($canWeMakeQuery) {
-                $loginAndMail = checkLoginAndMail($userData['login'], $userData['email']);
-                if ($loginAndMail['login']) {
-                    $errorArray[] = 'Ошибка: такой логин уже существует!';
-                }
-                if ($loginAndMail['email']) {
-                    $errorArray[] = 'Ошибка: такой email уже используется!';
-                }
-            }
-
-        if ($errorArray !== []) {
-            foreach ($errorArray as $error) {
-                $errorMessage .= $error;
-                $errorMessage .= "<br>";
-            }
+    // проверка совпадения паролей
+    if ($userData['password1'] !== $userData['password2']) {
+        $errorArray[] = 'Ошибка: пароли не совпадают!';
+        $canWeMakeQuery = false;
+    }
+    // проверка валидности имени и фамилии
+    if (true !== checkRUword($userData['name']) or true !== checkRUword($userData['surname'])) {
+        $errorArray[] = 'Ошибка: имя и фамилия должны содержать только кириллические символы!';
+        $canWeMakeQuery = false;
+    }
+    // проверка логина по списку и паттерну
+    if (true !== checkForbiddenWords($userData['login']) or true !== checkLogin($userData['login'])) {
+        $errorArray[] = 'Ошибка: недопустимый логин! Используйте только латинские символы и цифры';
+        $canWeMakeQuery = false;
+    }
+    // проверка мэйла по паттерну
+    if (true !== checkEmail($userData['email'])) {
+        $errorArray[] = 'Ошибка: недопустимый email!';
+        $canWeMakeQuery = false;
+    }
+    // если предыдущие проверки пройдены, то делаем запрос к БД на уникальность логина и мэйла
+    if($canWeMakeQuery) {
+        $loginAndMail = checkLoginAndMail($userData['login'], $userData['email']);
+        if ($loginAndMail['login']) {
+            $errorArray[] = 'Ошибка: такой логин уже существует!';
         }
+        if ($loginAndMail['email']) {
+            $errorArray[] = 'Ошибка: такой email уже используется!';
+        }
+    }
+
+    if ($errorArray !== []) {
+        foreach ($errorArray as $error) {
+            $errorMessage .= $error;
+            $errorMessage .= "<br>";
+        }
+    }
     return $errorMessage;
+}
+
+// получение логина автора по его ID
+function getUserLogin(string $userID) : string {
+    $params['user_id'] = $userID;
+    $sql = "SELECT login FROM users WHERE user_id = :user_id";
+    return getQuery($sql, $params, 'one')['login'];
 }
 
 
@@ -141,7 +138,16 @@ function validUserRegistr(array $userData) : string {
 
 
 
-
+// понижает права доступа пользователя до 0 и статуса забаненного, удаляет все его данные сессии из БД
+function expelUser (string $userID) : bool {
+    $params = ['user_id' => $userID, 'level' => LOCK_LVL, 'status' => 'ban'];
+    $params2 = ['user_id' => $userID];
+    $sql = "UPDATE users SET level = :level, status = :status WHERE user_id = :user_id AND user_id > 2";
+    $sql2 = "DELETE FROM sessions WHERE user_id = :user_id AND user_id > 2";
+    makeQueryToDB($sql, $params);
+    makeQueryToDB($sql2, $params2);
+    return true;
+}
 
 
 

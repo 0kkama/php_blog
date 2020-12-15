@@ -4,7 +4,7 @@
         <th>ЛОГИН</th>
         <th>ИМЯ</th>
         <th>ФАМИЛИЯ</th>
-        <th>РЕГИСТРАЦИЯ</th>
+        <th>ДАТА</th>
         <th>ПОЧТА</th>
         <th>LVL</th>
         <th>STAT</th>
