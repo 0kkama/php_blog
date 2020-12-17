@@ -5,10 +5,9 @@
     $params['art_id'] = (int) val(URL_PARAMS['art_id'] ?? '');
     $article = getAnyArticle($params);
 
-    // если такой статьи не найдено, то перенаправляем на ошибку
+    // если такой статьи нет, то перенаправляем на ошибку
     if ([] === $article) {
-        header('Location: ' . ROOT_URL . 'error/418');
-        exit();
+        header('Location: ' . ROOT_URL . 'error/404'); exit();
     }
     // если статья найдена, то создаём переменные, регулирующие права доступа
     $isUser = !empty($user);
@@ -62,7 +61,6 @@
         $content = template('articles/article.view.php', $article);
     }
     else {
-        header('Location: ' . ROOT_URL . 'error/423');
-        exit();
+        header('Location: ' . ROOT_URL . 'error/403'); exit();
     }
 

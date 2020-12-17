@@ -1,4 +1,5 @@
 <?php
+//    ФУНКЦИИ ВАЛИДАЦИИ ДАННЫХ
 // короткоименная фуя для простой обработки данных, вводимых пользователем.
 function val(string $inputStr, int $key = 1) : string {
     switch ($key) {
@@ -7,7 +8,6 @@ function val(string $inputStr, int $key = 1) : string {
     }
     return $inputStr;
 }
-
 // проверяет заполненность форм, если хотя бы одно из полей пустое - вернёт true
 function checkEmptyForms (array $fields) : bool {
     foreach ($fields as $key => $value) {
@@ -17,7 +17,6 @@ function checkEmptyForms (array $fields) : bool {
     }
         return false;
 }
-
 // проверка заполненности всех полей при создании/редактировании статьи
 function checkArticleParams(array $params = [], array $categories) : string {
     $errMsg = 'Неверно указана категория!';
@@ -38,7 +37,6 @@ function checkArticleParams(array $params = [], array $categories) : string {
     }
     return $errMsg;
 }
-
 // проверяет верность переданного ID по шаблону
 function checkID(string $ID) : bool {
     return (bool) preg_match('/^[1-9]+\d*$/', $ID);
@@ -65,16 +63,13 @@ function checkURLparams (array $params) : bool {
     }
     return true;
 }
-
 // проверяет URI на соответствие паттерну
 function checkRequestURI (string $requestUrl) : bool {
-   $reg = '@(\/\/)|[^\s\/a-zA-Z0-9_-]+@';
-   if (preg_match($reg, $requestUrl)) {
+    if (preg_match('~(\/\/)|[^\s\/\?\=a-zA-Z0-9_-]+~', $requestUrl)) {
         return true;
     }
     return false;
 }
-
 // возвращает false, если в строке присутствует что-то, кроме кириллических символов
 function checkRUword (string $name) : bool {
     if (preg_match('/[^а-яё]+/ui', $name)) {
@@ -82,21 +77,22 @@ function checkRUword (string $name) : bool {
     }
     return true;
 }
-
 // проверяет название новой категории на совпадение с одним из зарезервированных слов (возвращает false при совпадении)
 function checkForbiddenWords(string $str) : bool {
     $forbidWords =
     [
-        'add', 'edit', 'delete', 'category', 'revision', 'article', 'info', 'logs', 'index',
-        'users', 'user', 'error', 'errors', 'login','registration','articles','categories',
+        'add', 'edit', 'delete', 'category', 'categories', 'revision', 'article', 'articles',
+        'info', 'logs', 'index', 'error', 'errors', 'admin', 'admins', 'archivation',
+        'users', 'user', 'login', 'logout', 'registration', 'registr', 'moderation',
+        'publication', 'expel',
 
     ];
     foreach ($forbidWords as $word) {
             if ($str === $word) {
                 return false;
             }
-        return true;
     }
+    return true;
 }
 
 

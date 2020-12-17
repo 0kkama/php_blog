@@ -5,11 +5,11 @@
     if (false === checkYourPrivileges($user, USER_LVL)) {
         header('Location: ' . ROOT_URL . 'error/403'); exit();
     }
-    else {
+
         $params['art_id'] = (int) val(URL_PARAMS['art_id'] ?? 0);
         $isArticle = checkArticleExist($params);
 
-        if($isArticle['user_id'] === $user['user_id'] or checkYourPrivileges($user, MODER_LVL)) {
+        if ($isArticle['user_id'] === $user['user_id'] or checkYourPrivileges($user, MODER_LVL)) {
             if ($isArticle['exist'] === '1') {
                 archiveArticle($params);
                 $title = "Article deleted!";
@@ -22,7 +22,7 @@
         else {
             header('Location: ' . ROOT_URL . 'error/403'); exit();
         }
-    }
+
 
 
     // makesVisitLog();

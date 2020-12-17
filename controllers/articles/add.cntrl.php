@@ -2,10 +2,9 @@
     // контроллер добавления статьи
     makesVisitLog();
 
-    if(false === checkYourPrivileges($user, USER_LVL)) {
+    if (false === checkYourPrivileges($user, USER_LVL)) {
         $_SESSION['attentio'] = true;
-        header('Location: ' . ROOT_URL . 'login');
-        exit();
+        header('Location: ' . ROOT_URL . 'login'); exit();
     }
 
 	$sendStatus = false;
@@ -15,10 +14,7 @@
     $errMsg = '';
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST'):
-        // $article = extractFields(['user_id','cat_id','title','content'], $_POST);
         $article = extractFields(['cat_id','title','content'], $_POST);
-        // $article['author'] = getUserLogin($_POST['user_id']);
-
         $article['author'] = $user['login'];
         $article['user_id'] = $user['user_id'];
         $errMsg = checkArticleParams($article, $categories);
@@ -26,8 +22,7 @@
         if ('' === $errMsg) {
             $sendStatus = addArticle($article);
             $_SESSION['articleAdded'] = true;
-            header('Location: ' . ROOT_URL);
-            exit();
+            header('Location: ' . ROOT_URL); exit();
         }
     endif;
 
@@ -37,5 +32,4 @@
         'errMsg' => $errMsg,
         'sendStatus' => $sendStatus,
         ]);
-
 

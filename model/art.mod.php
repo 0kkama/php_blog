@@ -1,7 +1,6 @@
 <?php
 // фуи для работы со статьями
 
-
 //<editor-fold desc="ПОЛУЧЕНИЕ ДАННЫХ">
 // список последних 20 промодерированных статей для главной страницы
 function getArticlesList() : array {
@@ -20,22 +19,16 @@ function getAllArticles() : array {
             WHERE articles.cat_id = category.cat_id ORDER BY `date` DESC";
     return getQuery($sql);
 }
-// получение всех непромодерированных статей
-function getNotModerArticles() : array {
+// получение статей с определённым статусом модерации ('0', '1', '2')
+function getArticlesByStat(string $stat) : array {
+    $params['stat'] = $stat;
     $sql = "SELECT articles.art_id, articles.user_id, articles.cat_id, articles.title, articles.author,
             articles.date,articles.moderation, category.cat_name
             FROM articles, category
-            WHERE `moderation` = '0' AND articles.cat_id = category.cat_id ORDER BY `date`DESC";
-    return getQuery($sql);
+            WHERE `moderation` = :stat AND articles.cat_id = category.cat_id ORDER BY `date`DESC";
+    return getQuery($sql, $params);
 }
-// получение всех заархивированных статей
-function getArchivedArticles() : array {
-    $sql = "SELECT articles.art_id, articles.user_id, articles.cat_id, articles.title, articles.author,
-            articles.date,articles.moderation, category.cat_name
-            FROM articles, category
-            WHERE `moderation` = '2' AND articles.cat_id = category.cat_id ORDER BY `date` DESC";
-    return getQuery($sql);
-}
+
 // получение одобренной к модерации статьи по ID
 function getOneArticle (array $params = []) : array {
     $sql = "SELECT articles.art_id, articles.user_id, articles.cat_id, articles.title, articles.content,
@@ -52,6 +45,16 @@ function getAnyArticle (array $params = []) : array {
             WHERE art_id = :art_id AND articles.cat_id = category.cat_id";
     return getQuery($sql, $params, 'one');
 }
+// получение статей (кроме архивированных) пользователя по его ИД
+function getArticleByUserID(string $userID) : array {
+    $params['user_id'] = $userID;
+    $sql = "SELECT articles.art_id, articles.user_id, articles.cat_id, articles.title, articles.author,
+            articles.date, articles.moderation, category.cat_name
+            FROM articles, category
+            WHERE articles.cat_id = category.cat_id AND `moderation` <> '2' AND user_id = :user_id;";
+    return getQuery($sql,$params);
+}
+
 // проверка существования статьи по ID со статусом модерации '1'
 function checkArticleExist(array $params = []) : array {
     $sql = "SELECT EXISTS(SELECT `art_id` FROM articles WHERE art_id = :art_id AND moderation = '1') as 'exist',
@@ -59,7 +62,6 @@ function checkArticleExist(array $params = []) : array {
     return getQuery($sql, $params, 'one');
 }
 //</editor-fold>
-
 
 //<editor-fold desc="ИЗМЕНЕНИЕ И ДОБАВЛЕНИЕ ДАННЫХ">
 // добавление новой статьи в базу

@@ -18,6 +18,7 @@
         <?php if (checkYourPrivileges($user, USER_LVL)): ?>
             | Вы зашли как <?= $user['login']; ?>
             | <a href="<?=ROOT_URL?>">Главная</a>
+            | <a href="<?=ROOT_URL?>users/account">Личный кабинет</a>
             | <a href="<?=ROOT_URL?>article/add">Добавить статью</a>
             | <a href="<?=ROOT_URL?>logout">Выйти</a>
         <?php endif; ?>

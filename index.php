@@ -26,7 +26,6 @@
         else {
             include_once($path);
         }
-
     endif;
 
     if (isset($_SESSION['articleAdded'])) {
@@ -39,7 +38,7 @@
 
     $categories = getCategoriesList();
     // подключение лэйаута
-    // var_dump($user);
+    //     var_dump($_GET);
     echo template('layout.view.php',
         [
             'title' => $title,

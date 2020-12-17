@@ -6,6 +6,7 @@ return
         $normID = '[1-9]+\d*';
         $normUrl = '[0-9a-zA-Z_-]+';
         $normDate = '\d{4}-\d{2}-\d{2}';
+        $mdrQry = '\?q\=(\w{3})';
         return
         [
             //<editor-fold desc="РОУТ ГЛАВНОЙ СТРАНИЦЫ">
@@ -47,12 +48,13 @@ return
             [
                 'test' => "/^\/?article\/edit\/($normID)\/?$/",
                 'controller' => 'articles/edit',
-                'params' => ['art_id' => 1]
+                'params' => ['art_id' => 1],
             ],
             // страница управления модератора
             [
-                'test' => "/^\/?article\/moderation\/?$/",
+                'test' => "/^\/?article\/moderation\/?($mdrQry)?/",
                 'controller' => 'articles/moderation',
+//               'params' => ['mdr' => 1],
             ],
             // удаление статьи (для пользователей)
             [
@@ -134,6 +136,11 @@ return
             ],
             //</editor-fold>
             //<editor-fold desc="РОУТЫ ДЛЯ УПРАВЛЕНИЯ ПОЛЬЗОВАТЕЛЯМИ">
+            // личный кабинет пользователя
+            [
+                'test' => "/^\/?users\/account\/?$/",
+                'controller' => 'users/account',
+            ],
             // роут для страницы управления пользователями
             [
                 'test' => "/^\/?users\/?$/",

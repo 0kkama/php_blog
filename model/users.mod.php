@@ -46,7 +46,7 @@ function getSessionByToken(string $token) : array {
 // получение данных пользователя по ИД
 function getUserByID(string $userID) : array {
     $params['user_id'] = $userID;
-    $sql = "SELECT user_id, login, email, name, surname, level, status FROM users WHERE user_id = :user_id";
+    $sql = "SELECT user_id, login, email, `date`, name, surname, level, status FROM users WHERE user_id = :user_id";
     return getQuery($sql, $params, 'one');
 }
 // добавление нового пользователя в БД
@@ -55,9 +55,6 @@ function addNewUser (array $userData) : bool {
     makeQueryToDB($sql, $userData);
     return true;
 }
-
-
-
 // проверка уникальности логина и мэйла
 function checkLoginAndMail(string $login, string $email) : array {
     $params = ['login' => $login, 'email' => $email];
